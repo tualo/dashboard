@@ -1,0 +1,20 @@
+{
+    "name": "tualo/dashboard",
+    "description": "Dashboard for tualo office",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas Hoffmann",
+            "email": "thomas.hoffmann@tualo.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "tualo\\Office\\Dashboard\\": "src/"
+        },
+        "files": ["src/functions.php"]
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
