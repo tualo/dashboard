@@ -6,40 +6,26 @@ Ext.define('TualoOffice.dashboard.view.dashboard.Controller', {
       let me = this;
       Tualo.Ajax.request({
         scope: this,
-        //showWait: true,
         url: './',
         params: {
           "logout": 1
         },
         json: function(o){
-          TualoOffice.ping();
+          me.getView().fireEvent('loggedOut');
         }
       });
+
+  
     },
 
-    onLoginClick: function(){
+    addView: function(viewcls,single,token){
+      
+      
+      let panel = Ext.create(viewcls,{
 
-        let me = this,
-            formpanel = me.getView().getComponent('login').getComponent('loginform'),
-            frm = formpanel.getValues();
-  
-        Tualo.Ajax.request({
-          scope: this,
-          //showWait: true,
-          url: './',
-          params: {
-            "username": frm.username,
-            "password": frm.password
-          },
-          json: function(o){
-            if (o.success==false){
-              me.getView().getLayout().setActiveItem(1);
-              Ext.toast(o.msg);
-            }else{
-              me.getView().getLayout().setActiveItem(2);
-            }
-          }
-        });
-  
+      });
+      this.getView().add(panel);
+      this.getView().setActiveItem(panel);
+      
     }
 })

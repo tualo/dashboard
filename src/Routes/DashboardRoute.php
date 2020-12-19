@@ -1,5 +1,5 @@
 <?php
-namespace tualo\Office\TualoTheme\Routes;
+namespace tualo\Office\Dashboard\Routes;
 use tualo\Office\Basic\TualoApplication;
 use tualo\Office\Basic\Route;
 use tualo\Office\Basic\IRoute;
@@ -33,6 +33,37 @@ class DashboardRoute implements IRoute{
                 TualoApplication::etagFile((dirname(__DIR__).'/js/'.$matches['file'].'.js'));
             }
             TualoApplication::contenttype('application/javascript');
+        },array('get','post'),false);
+
+
+
+        Route::add('/dashboard/test',function(){
+            TualoApplication::result('success',false);
+            TualoApplication::result('success', true );
+            $files = file( TualoApplication::get('basePath').'/vendor/tualo/dashboard/'.'/jsloader.map' );
+            foreach($files as $file){
+                $fn = TualoApplication::get('basePath').'/vendor/tualo/dashboard/'.''.str_replace("\n","",str_replace("./","",$file));
+                $files = file_get_contents( $fn );
+                TualoApplication::javascriptLoader( $files );
+            }
+        },array('get'),false);
+
+
+        Route::add('/dashboard/client/load',function(){
+            TualoApplication::result('success', false );
+            TualoApplication::result('msg', 'not logged in');
+            if (isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['loggedIn']) && ($_SESSION['tualoapplication']['loggedIn']==true) ){
+                try {
+                    TualoApplication::result('msg', 'ok');
+                    TualoApplication::result('data', $_SESSION['tualoapplication']['clients'] );
+                    TualoApplication::result('current', $_SESSION['tualoapplication']['client'] );
+                    TualoApplication::result('success', true );
+                }catch(Exception $e){
+                    TualoApplication::result('msg', $e->getMessage());
+                }
+            }
+            TualoApplication::contenttype('application/json');
+        
         },array('get','post'),false);
 
     }

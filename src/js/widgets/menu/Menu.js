@@ -1,8 +1,8 @@
-Ext.define('TualoOffice.dashboard.widgets.Menu', {
+Ext.define('TualoOffice.dashboard.widgets.menu.Menu', {
     extend: 'TualoOffice.dashboard.widgets.Sidebar',
     xtype: 'dashboard_mainmenu',
     requires:[
-        'TualoOffice.dashboard.controller.Menu'
+        'TualoOffice.dashboard.widgets.menu.Controller'
     ],
 
     config: {
@@ -22,9 +22,8 @@ Ext.define('TualoOffice.dashboard.widgets.Menu', {
     //title: 'test',
     items: [ {
             xtype: 'button',
-            handler: 'onLogoutClick',
+            handler: 'onExpandClick',
             iconCls: 'x-fa fa-bars',
-            text: '...',
             //ui: 'large',
             //ui: 'large flat dark',
             docked: 'top'
@@ -56,14 +55,6 @@ Ext.define('TualoOffice.dashboard.widgets.Menu', {
                 text: '<div class="title">{user.firstname}</div>'+
                     '<div class="value">{user.username}</div>'
             }*/
-        }, {
-            xtype: 'button',
-            handler: 'onLogoutClick',
-            iconCls: 'fa fa-power-off',
-            text: 'Abmelden',
-            //textAlign: 'left',
-            //ui: 'large flat dark',
-            docked: 'bottom'
         }
     ],
 
