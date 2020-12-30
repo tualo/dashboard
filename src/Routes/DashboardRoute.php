@@ -22,7 +22,7 @@ class DashboardRoute implements IRoute{
                 TualoApplication::result('username', $_SESSION['tualoapplication']['username'] );
                 TualoApplication::result('clients', $_SESSION['tualoapplication']['clients'] );
                 TualoApplication::result('client', $_SESSION['tualoapplication']['client'] );
-                TualoApplication::result('username', $_SESSION['tualoapplication']['username'] );
+                TualoApplication::result('fullname', $_SESSION['tualoapplication']['fullname'] );
                 TualoApplication::result('success', true );
             }
             TualoApplication::contenttype('application/json');
@@ -63,6 +63,93 @@ class DashboardRoute implements IRoute{
                 }
             }
             TualoApplication::contenttype('application/json');
+        
+        },array('get','post'),false);
+
+
+        Route::add('/dashboard/client/switch',function(){
+            TualoApplication::contenttype('application/json');
+            TualoApplication::result('success', false );
+            TualoApplication::result('msg', 'not logged in');
+            $session = TualoApplication::get('session');
+            if (isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['loggedIn']) && ($_SESSION['tualoapplication']['loggedIn']==true) ){
+                try {
+                    $sql = '
+                        SELECT
+                            macc_users.login,
+                            macc_users.passwd,
+                            macc_users.typ,
+                            concat(ifnull(loginnamen.vorname,"")," ",ifnull(loginnamen.nachname,"")) fullname,
+                            test_login({username},{password}) pwresult,
+
+                            macc_users_clients.client  dbname,
+                            view_macc_clients.username dbuser,
+                            view_macc_clients.password dbpass,
+                            view_macc_clients.host dbhost,
+                            view_macc_clients.port dbport
+
+                        FROM
+                            macc_users
+                            join macc_users_clients 
+                            on macc_users_clients.login = macc_users.login
+                            join view_macc_clients 
+                            on macc_users_clients.client = view_macc_clients.id
+                            left join loginnamen 
+                            on macc_users.login=loginnamen.login
+                        WHERE 
+                            macc_users.login = {username}
+
+                        HAVING (  macc_users_clients.client={mandant} or {mandant}=""  )
+
+                        LIMIT 1
+                    ';
+                    $hash = ['mandant'=>$_REQUEST['toclient'],'username'=>$_SESSION['tualoapplication']['username']];
+                    $row = $session->db->singleRow($sql,$hash);
+
+                    if (false !== $row){
+                        session_start();
+                        TualoApplication::result('success',true);
+                        $_SESSION['db']['dbhost'] = $row['dbhost'];
+                        $_SESSION['db']['dbuser'] = $row['dbuser'];
+                        $_SESSION['db']['dbpass'] = $row['dbpass'];
+                        $_SESSION['db']['dbport'] = $row['dbport'];
+                        $_SESSION['db']['dbname'] = $row['dbname'];
+                        
+                        $_SESSION['tualoapplication']['loggedIn'] = true;
+                        $_SESSION['tualoapplication']['typ'] = $row['typ'];
+                        $_SESSION['tualoapplication']['username'] = $row['login'];
+                        $_SESSION['tualoapplication']['fullname'] = $row['fullname'];
+                        $_SESSION['tualoapplication']['client'] = $row['dbname'];
+                        $_SESSION['tualoapplication']['clients'] = $session->db->direct('SELECT macc_users_clients.client FROM macc_users_clients join view_macc_clients on macc_users_clients.client = view_macc_clients.id WHERE macc_users_clients.login = {username}',$_SESSION['tualoapplication']);
+                        session_commit();
+                        // Test DB Access
+                        if ( is_null( $session->getDB() ) ){
+                            TualoApplication::result('success',false);
+                            TualoApplication::result('msg','Felher beim Zugriff auf die Datenbank');
+//                            $session->destroy();
+                        }else{
+                            
+                            TualoApplication::result('fullname',    $_SESSION['tualoapplication']['fullname']);
+                            TualoApplication::result('username',    $_SESSION['tualoapplication']['username']);
+                            TualoApplication::result('client',      $_SESSION['tualoapplication']['client']);
+                            TualoApplication::result('clients',     $_SESSION['tualoapplication']['clients']);
+                            TualoApplication::result('dbaccess',true);
+                            TualoApplication::result('dbn',$session->getDB()->singleValue('select database() s',[],'s'));
+                            TualoApplication::result('success', true );
+                           
+                        }
+
+                    }else{
+                        TualoApplication::result('success',false);
+                        TualoApplication::result('msg','Fehlerhaft');
+                    }
+
+
+
+                }catch(Exception $e){
+                    TualoApplication::result('msg', $e->getMessage());
+                }
+            }
         
         },array('get','post'),false);
 

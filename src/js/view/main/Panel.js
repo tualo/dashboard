@@ -37,6 +37,7 @@ Ext.define('TualoOffice.dashboard.view.main.Panel', {
             }
         },{
             xtype: 'dashboard_dashboard',
+            itemId: 'dashboard_dashboard',
             listeners: {
                 loggedOut: 'onLoggedOut'
             }

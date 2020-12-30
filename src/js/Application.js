@@ -62,6 +62,7 @@ Ext.application({
     },
     ping: function(){
         let me=this;
+        console.log(1);
         Tualo.Ajax.request({
             url: './dashboard/ping',
             json: function(o){
@@ -70,6 +71,9 @@ Ext.application({
                     me.getMainView().setActiveItem(1);
                 }else{
                     me.getMainView().setActiveItem(2);
+                    window.o = o;
+                    window.f = me.getMainView().getComponent('dashboard_dashboard');
+                    me.getMainView().getComponent('dashboard_dashboard').setSessionPing(o);
                 }
             }
         });

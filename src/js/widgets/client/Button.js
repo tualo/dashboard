@@ -1,9 +1,9 @@
 Ext.define('TualoOffice.dashboard.widgets.client.Button', {
     extend: 'Ext.Button',
     alias: 'widget.clientbutton',
-
+    
     switchClient: function(client){
-  
+      console.log('ok',client,arguments);
       Ext.Ajax.request({
           url: './dashboard/client/switch',
           params: {
@@ -18,7 +18,7 @@ Ext.define('TualoOffice.dashboard.widgets.client.Button', {
           }
       });
     },
-  
+    
     getClient: function(){
       var me = this;
       Ext.Ajax.request({
@@ -39,14 +39,12 @@ Ext.define('TualoOffice.dashboard.widgets.client.Button', {
           }
       });
     },
-  
     
-    //
+    text: '--',
     onSwitchClient: function(btn){
-      this.switchClient(btn.text);
+      this.switchClient(btn.config.text);
     },
     refreshMenu: function(clients,current){
-      /*
       var me = this, text=current, m=[];
       me.setText(text);
       if (clients){
@@ -58,26 +56,20 @@ Ext.define('TualoOffice.dashboard.widgets.client.Button', {
         }
         me.setMenu(m);
       }
-        */
+      
     },
-    text: ';)',
-    //menu: [],
+    bind: {
+      text: '{client}',
+    },
     initConfig: function(config) {
-//        console.log('init',config);
         this.callParent(config);
+        console.log('ok')
         let me = this;
         me.menu = [];
-        me.on('painted',me.getClient,me);
         document.addEventListener("visibilitychange", function(){
-            console.log('---->')
-              me.getClient();  
+            me.getClient();  
         });
-      
-        //this.setText( TualoOffice.getApplication().sessionPing.client );
-        console.log('init',config);
-        
-      //var me.callParent();
-      
+        me.getClient();
     },
     setStore: function(store) {
         var oldStore = this.store;

@@ -3,15 +3,21 @@ Ext.define('TualoOffice.dashboard.view.dashboard.Panel', {
     xtype: 'dashboard_dashboard',
     requires: [
         'TualoOffice.dashboard.view.dashboard.Controller',
+        'TualoOffice.dashboard.view.dashboard.Model',
         'TualoOffice.dashboard.widgets.menu.Menu',
         'TualoOffice.dashboard.widgets.app.Header'
     ],
     layout: 'card',
     controller: 'dashboard_dashboard',
+    viewModel: {
+        type: 'dashboard_dashboard'
+    },
+    
+
     addView: function(viewcls,single,token){
         this.getController().addView(viewcls,single,token);
     },
-    
+
     items:[
         {
             docked: 'top',
@@ -21,8 +27,10 @@ Ext.define('TualoOffice.dashboard.view.dashboard.Panel', {
             listeners: {
                 logout: 'onLogoutClick'
             },
+            
             zIndex: 4
         },
+        /*
         {
             docked: 'left',
             xtype: 'dashboard_mainmenu',
@@ -34,6 +42,7 @@ Ext.define('TualoOffice.dashboard.view.dashboard.Panel', {
             
             zIndex: 4
         },
+        
         {
             xtype: 'panel',
             itemId: 'loading',
@@ -48,7 +57,8 @@ Ext.define('TualoOffice.dashboard.view.dashboard.Panel', {
                 height: 80,
                 html: '<div class="lds-ring"><div></div><div></div><div></div><div></div></div>'
             }]
-        },{
+        },*/
+        {
             title: 'tualo office',
             xtype: 'panel',
             layout: {
@@ -58,9 +68,12 @@ Ext.define('TualoOffice.dashboard.view.dashboard.Panel', {
             },
             items:[{
                 xtype: 'panel',
-                width: 80,
-                height: 80,
-                html: 'Hi, there!'
+                autoWidth: true,
+                autoHeight: true,
+                
+                bind:{
+                    html: '<span style="line-height:6.6vw;font-size:6vw;">Hallo, <br><b>{fullname}</b></span>'
+                }
             }]
         }
     ]
