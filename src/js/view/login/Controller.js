@@ -23,6 +23,8 @@ Ext.define('TualoOffice.dashboard.view.login.Controller', {
           },
           json: function(o){
             if (o.success==false){
+                me.getView().addCls('panel-shake')
+                Ext.defer(()=>{  me.getView().removeCls('panel-shake') }, 1000 );
                 Ext.toast(o.msg);
             }else{
                 me.getView().fireEvent('loggedIn');

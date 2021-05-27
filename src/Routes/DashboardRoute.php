@@ -153,5 +153,14 @@ class DashboardRoute implements IRoute{
         
         },array('get','post'),false);
 
+
+
+        Route::add('/dashboard/shake.css',function($matches){
+            $path = dirname(dirname(__DIR__)).'';
+            $data = file_get_contents( $path."/src/css/shake.css" );
+            TualoApplication::body( $data );
+            TualoApplication::contenttype('text/css');
+        },array('get','post'),false);
+
     }
 }

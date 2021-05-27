@@ -6,7 +6,7 @@ Ext.define('TualoOffice.dashboard.view.dashboard.Controller', {
       let me = this;
       Tualo.Ajax.request({
         scope: this,
-        url: './',
+        url: './logout',
         params: {
           "logout": 1
         },
