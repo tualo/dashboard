@@ -61,10 +61,13 @@ Ext.define('TualoOffice.dashboard.view.dashboard.Panel', {
         {
             title: 'tualo office',
             xtype: 'panel',
+            itemId: 'stage',
             layout: {
-                type: 'vbox',
+                type: 'card',
+                /*
                 align: 'center',
                 pack: 'center'
+                */
             },
             items:[{
                 xtype: 'panel',
