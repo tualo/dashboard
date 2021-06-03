@@ -63,7 +63,6 @@ Ext.define('TualoOffice.dashboard.widgets.client.Button', {
     },
     initConfig: function(config) {
         this.callParent(config);
-        console.log('ok')
         let me = this;
         me.menu = [];
         document.addEventListener("visibilitychange", function(){

@@ -28,6 +28,7 @@ Ext.define('TualoOffice.dashboard.view.login.Controller', {
                 Ext.toast(o.msg);
             }else{
                 me.getView().fireEvent('loggedIn');
+                window.location.reload();
               //me.getView().getLayout().setActiveItem(2);
             }
           }
