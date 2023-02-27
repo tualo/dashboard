@@ -5,6 +5,7 @@ Ext.define('TualoOffice.dashboard.widgets.app.Header', {
     requires: [
         'Ext.field.Search',
         'Ext.field.Text',
+        //'Ext.ux.form.SearchField',
         'TualoOffice.dashboard.widgets.client.Button',
         'TualoOffice.dashboard.widgets.app.HeaderModel',
         'TualoOffice.dashboard.widgets.app.HeaderController'
@@ -25,12 +26,14 @@ Ext.define('TualoOffice.dashboard.widgets.app.Header', {
             docked: 'left',
             width: 80
         },
+        
         {
             xtype: 'searchfield',
             name: 'searchfield',
             placeholder: 'Suchen',
             flex: 1
         },
+        
         {
             xtype: 'clientbutton',
             //ui: 'action round',

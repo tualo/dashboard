@@ -1,23 +1,13 @@
 Ext.application({
     name: 'TualoOfficeApplication',
-
-    // The name of the initial view to create. With the classic toolkit this class
-    // will gain a "viewport" plugin if it does not extend Ext.Viewport. With the
-    // modern toolkit, the main view will be added to the Viewport.
-    //
-    //mainView: 'Main.view.main.Main'
-
     controllers: ['TualoOffice.dashboard.controller.Application'],
-
     paths: {
         'TualoOffice': '.'
     },
     requires: [
         'TualoOffice.tualojs.Ajax'
     ],
-
     mainView: 'TualoOffice.dashboard.view.main.Panel',
-
     listeners: {
         unmatchedroute: 'onUnmatchedRoute'
     },
@@ -33,15 +23,6 @@ Ext.application({
        
         this.registerRoutes();
     },
-    /*
-    constructor: function(config) {
-
-        if (typeof config=='undefined') config={};
-        config.routes = this.getRoutes();
-        console.log('a',config.routes);
-        this.callParent(config);
-    },
-    */
     getRoutes: function(){
         let routes = {};
         for(let cls in Ext.ClassManager.classes){
@@ -81,7 +62,7 @@ Ext.application({
     
 
     onAppUpdate: function () {
-        Ext.Msg.confirm('Application Update', 'This application has an update, reload?',
+        Ext.Msg.confirm('Anwendung', 'Für diese Anwendung gibt es Änderungen, sollen diese geladen werden?',
             function (choice) {
                 if (choice === 'yes') {
                     window.location.reload();

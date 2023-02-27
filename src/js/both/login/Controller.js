@@ -26,7 +26,9 @@ Ext.define('TualoOffice.dashboard.view.login.Controller', {
                 me.getView().addCls('panel-shake')
                 Ext.defer(()=>{  me.getView().removeCls('panel-shake') }, 1000 );
                 Ext.toast(o.msg);
+                
             }else{
+
                 me.getView().fireEvent('loggedIn');
                 window.location.reload();
               //me.getView().getLayout().setActiveItem(2);

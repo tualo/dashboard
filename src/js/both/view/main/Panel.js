@@ -5,7 +5,8 @@ Ext.define('TualoOffice.dashboard.view.main.Panel', {
     layout: 'card',
 
     listeners: {
-        initialize: 'onInitialize'
+        initialize: 'onInitialize'//,
+        //boxready: 'onInitialize'
     },
     addView: function(viewcls,token,single){
         this.items.getAt(2).addView(viewcls,token,single);
