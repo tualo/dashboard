@@ -7,7 +7,7 @@ use Tualo\Office\ExtJSCompiler\ICompiler;
 
 class Compiler implements ICompiler {
     public static function listFiles($path,&$files,$replacesubpath=''){
-        if ($replacesubpath=='') $replacesubpath=$path;
+        if ($replacesubpath=='') $replacesubpath=$path.'/';
         if (file_exists($path)){
             if ($handle = opendir($path)) {
                 while (false !== ($file = readdir($handle))) {
