@@ -3,7 +3,7 @@ Ext.define('TualoOffice.dashboard.widgets.login.Button', {
     extend: 'Ext.Toolbar',
     xtype: 'app_header',
     requires: [
-        'Ext.field.Search'
+        //'Ext.field.Search'
     ],
     layout: 'hbox',
     shadow: true,
@@ -15,12 +15,12 @@ Ext.define('TualoOffice.dashboard.widgets.login.Button', {
             docked: 'left',
             width: 80
         },
-        {
+        /*{
             xtype: 'searchfield',
             name: 'searchfield',
             placeholder: 'Suchen',
             flex: 2
-        },
+        },*/
         {
             xtype: 'button',
             handler: 'onLogoutClick',
