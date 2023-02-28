@@ -11,7 +11,7 @@ Ext.define('Tualo.Application',{
         }
     },
 
-    controllers: ['Tualo.dashboard.controller.Application'],
+    //controllers: ['Tualo.dashboard.controller.Application'],
     paths: {
         'Tualo': '.'
     },
