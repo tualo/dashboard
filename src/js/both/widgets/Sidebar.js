@@ -1,4 +1,4 @@
-Ext.define('TualoOffice.dashboard.widgets.Sidebar', {
+Ext.define('Tualo.dashboard.widgets.Sidebar', {
     extend: 'Ext.panel.Panel',
     xtype: 'dashboard_sidebar',
 

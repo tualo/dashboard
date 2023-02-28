@@ -1,4 +1,4 @@
-Ext.define('TualoOffice.dashboard.widgets.app.HeaderModel', {
+Ext.define('Tualo.dashboard.widgets.app.HeaderModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.app_header',
     data: {

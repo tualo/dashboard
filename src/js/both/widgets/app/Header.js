@@ -1,14 +1,14 @@
 
-Ext.define('TualoOffice.dashboard.widgets.app.Header', {
+Ext.define('Tualo.dashboard.widgets.app.Header', {
     extend: 'Ext.Toolbar',
     xtype: 'app_header',
     requires: [
         //'Ext.field.Search',
         //'Ext.field.Text',
         //'Ext.ux.form.SearchField',
-        'TualoOffice.dashboard.widgets.client.Button',
-        'TualoOffice.dashboard.widgets.app.HeaderModel',
-        'TualoOffice.dashboard.widgets.app.HeaderController'
+        'Tualo.dashboard.widgets.client.Button',
+        'Tualo.dashboard.widgets.app.HeaderModel',
+        'Tualo.dashboard.widgets.app.HeaderController'
     ],
     controller: 'app_header',
     /*

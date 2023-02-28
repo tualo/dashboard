@@ -1,4 +1,4 @@
-Ext.define('TualoOffice.dashboard.view.loader.Panel', {
+Ext.define('Tualo.dashboard.view.loader.Panel', {
     extend: 'Ext.panel.Panel',
     
     layout: {

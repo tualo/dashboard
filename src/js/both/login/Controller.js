@@ -1,5 +1,5 @@
 
-Ext.define('TualoOffice.dashboard.view.login.Controller', {
+Ext.define('Tualo.dashboard.view.login.Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.dashboard_login',
 

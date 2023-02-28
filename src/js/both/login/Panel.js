@@ -1,8 +1,8 @@
-Ext.define('TualoOffice.dashboard.view.login.Panel', {
+Ext.define('Tualo.dashboard.view.login.Panel', {
     extend: 'Ext.form.Panel',
 
     requires: [
-        'TualoOffice.dashboard.view.login.Controller'
+        'Tualo.dashboard.view.login.Controller'
     ],
 
     controller: 'dashboard_login',

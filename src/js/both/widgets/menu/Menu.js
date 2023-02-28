@@ -1,8 +1,8 @@
-Ext.define('TualoOffice.dashboard.widgets.menu.Menu', {
-    extend: 'TualoOffice.dashboard.widgets.Sidebar',
+Ext.define('Tualo.dashboard.widgets.menu.Menu', {
+    extend: 'Tualo.dashboard.widgets.Sidebar',
     xtype: 'dashboard_mainmenu',
     requires:[
-        'TualoOffice.dashboard.widgets.menu.Controller'
+        'Tualo.dashboard.widgets.menu.Controller'
     ],
 
     config: {

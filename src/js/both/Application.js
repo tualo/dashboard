@@ -1,13 +1,13 @@
 Ext.application({
-    name: 'TualoOfficeApplication',
-    controllers: ['TualoOffice.dashboard.controller.Application'],
+    name: 'Tualo',
+    controllers: ['Tualo.dashboard.controller.Application'],
     paths: {
-        'TualoOffice': '.'
+        'Tualo': '.'
     },
     requires: [
-        'TualoOffice.tualojs.Ajax'
+        'Tualo.tualojs.Ajax'
     ],
-    mainView: 'TualoOffice.dashboard.view.main.Panel',
+    mainView: 'Tualo.dashboard.view.main.Panel',
     listeners: {
         unmatchedroute: 'onUnmatchedRoute'
     },
@@ -26,7 +26,7 @@ Ext.application({
     getRoutes: function(){
         let routes = {};
         for(let cls in Ext.ClassManager.classes){
-            if (cls.indexOf('TualoOffice.routes.')==0){
+            if (cls.indexOf('Tualo.routes.')==0){
                 let route = Ext.create(cls);
                 routes[route.url+""]=route.handler;
                 

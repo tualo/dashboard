@@ -1,4 +1,4 @@
-Ext.define('TualoOffice.dashboard.widgets.client.Button', {
+Ext.define('Tualo.dashboard.widgets.client.Button', {
     extend: 'Ext.Button',
     alias: 'widget.clientbutton',
     

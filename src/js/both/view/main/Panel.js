@@ -1,4 +1,4 @@
-Ext.define('TualoOffice.dashboard.view.main.Panel', {
+Ext.define('Tualo.dashboard.view.main.Panel', {
     extend: 'Ext.panel.Panel',
     xtype: 'dashboard_main',
     controller: 'dashboard_main',
@@ -12,9 +12,9 @@ Ext.define('TualoOffice.dashboard.view.main.Panel', {
         this.items.getAt(2).addView(viewcls,token,single);
     },
     requires: [
-        'TualoOffice.dashboard.view.login.Panel',
-        'TualoOffice.dashboard.view.dashboard.Panel',
-        'TualoOffice.dashboard.view.main.Controller'
+        'Tualo.dashboard.view.login.Panel',
+        'Tualo.dashboard.view.dashboard.Panel',
+        'Tualo.dashboard.view.main.Controller'
     ],
     items: [
         {

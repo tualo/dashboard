@@ -1,5 +1,5 @@
 
-Ext.define('TualoOffice.dashboard.widgets.login.Button', {
+Ext.define('Tualo.dashboard.widgets.login.Button', {
     extend: 'Ext.Toolbar',
     xtype: 'app_header',
     requires: [

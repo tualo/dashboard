@@ -1,11 +1,11 @@
-Ext.define('TualoOffice.dashboard.view.dashboard.Panel', {
+Ext.define('Tualo.dashboard.view.dashboard.Panel', {
     extend: 'Ext.panel.Panel',
     xtype: 'dashboard_dashboard',
     requires: [
-        'TualoOffice.dashboard.view.dashboard.Controller',
-        'TualoOffice.dashboard.view.dashboard.Model',
-        'TualoOffice.dashboard.widgets.menu.Menu',
-        'TualoOffice.dashboard.widgets.app.Header'
+        'Tualo.dashboard.view.dashboard.Controller',
+        'Tualo.dashboard.view.dashboard.Model',
+        'Tualo.dashboard.widgets.menu.Menu',
+        'Tualo.dashboard.widgets.app.Header'
     ],
     layout: 'card',
     controller: 'dashboard_dashboard',

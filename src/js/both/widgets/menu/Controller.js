@@ -1,4 +1,4 @@
-Ext.define('TualoOffice.dashboard.widgets.menu.Controller', {
+Ext.define('Tualo.dashboard.widgets.menu.Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.dashboard_mainmenu',
     onLogoutClick: function(){
