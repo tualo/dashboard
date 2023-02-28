@@ -6,38 +6,50 @@ use Tualo\Office\ExtJSCompiler\ICompiler;
 
 
 class Compiler implements ICompiler {
-    public static function listFiles($path){
-        $files=[];
-        if ($handle = opendir($path)) {
-            while (false !== ($file = readdir($handle))) {
-                if ( ($file!='.') && ($file!='..') ) $files[]=$file;
+    public static function listFiles($path,&$files){
+        if (file_exists($path)){
+            if ($handle = opendir($path)) {
+                while (false !== ($file = readdir($handle))) {
+                    if ( ($file!='.') && ($file!='..') ){
+                        if (is_dir($path.'/'.$file)){
+                            self::listFiles($path.'/'.$file,$files);
+                        }else{
+                            $files[]=$path.'/'.$file;
+                        }
+                    }
+                }
+                closedir($handle);
             }
-            closedir($handle);
         }
-        return $files;
     }
 
     public static function getFiles(){
         $files = [];
+        $l = [];
+        self::listFiles(__DIR__."/js/modern/",$l);
         $files[] = [
             'prio'=>'10003',
             'toolkit'=>'modern',
             'modul'=>'dashboard',
-            'files'=>self::listFiles(__DIR__."/js/modern/")
+            'files'=>$l
         ];  
 
+        $l = [];
+        self::listFiles(__DIR__."/js/modern/",$l);
         $files[] = [
             'prio'=>'10003',
             'toolkit'=>'classic',
             'modul'=>'dashboard',
-            'files'=>self::listFiles(__DIR__."/js/classic/")
+            'files'=>$l
         ];  
         
+        $l = [];
+        self::listFiles(__DIR__."/js/modern/",$l);
         $files[] = [
             'prio'=>'10003',
             'toolkit'=>'',
             'modul'=>'dashboard',
-            'files'=>self::listFiles(__DIR__."/js/both/")
+            'files'=>$l
         ];
         return $files;
     }
