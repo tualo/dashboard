@@ -35,7 +35,7 @@ class Compiler implements ICompiler {
         ];  
 
         $l = [];
-        self::listFiles(__DIR__."/js/modern/",$l);
+        self::listFiles(__DIR__."/js/classic/",$l);
         $files[] = [
             'prio'=>'10003',
             'toolkit'=>'classic',
@@ -44,7 +44,7 @@ class Compiler implements ICompiler {
         ];  
         
         $l = [];
-        self::listFiles(__DIR__."/js/modern/",$l);
+        self::listFiles(__DIR__."/js/both/",$l);
         $files[] = [
             'prio'=>'10003',
             'toolkit'=>'',
