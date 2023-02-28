@@ -1,4 +1,4 @@
-Ext.application({
+Ext.define('Tualo.Application',{
 
     extend: 'Ext.app.Application',
 
@@ -31,7 +31,7 @@ Ext.application({
     },
 
     launch: function() {
-       
+        console.log('launch',this);
         this.registerRoutes();
     },
     getRoutes: function(){
