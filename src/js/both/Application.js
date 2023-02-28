@@ -1,5 +1,16 @@
 Ext.application({
+
+    extend: 'Ext.app.Application',
+
     name: 'Tualo',
+
+    quickTips: false,
+    platformConfig: {
+        desktop: {
+            quickTips: true
+        }
+    },
+
     controllers: ['Tualo.dashboard.controller.Application'],
     paths: {
         'Tualo': '.'
