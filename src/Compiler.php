@@ -17,7 +17,7 @@ class Compiler implements ICompiler {
                         }else{
                             $files[]=[
                                 'file'=>$path.'/'.$file,
-                                'subpath'=>str_replace($replacesubpath,'',$path.'/'.$file),
+                                'subpath'=>dirname(str_replace($replacesubpath,'',$path.'/'.$file)),
                                 'prio'=>0
                             ];
                         }
