@@ -43,6 +43,11 @@ Ext.define('Tualo.dashboard.view.login.Panel', {
                         value: 'Geben Sie hier Ihre Zugangsdaten ein'
                     },
                     {
+                        xtype: 'hiddenfield',
+                        name: 'forcelogin',
+                        value: '1'
+                    },
+                    {
                         xtype: 'textfield',
                         name: 'username',
                         anchor: '100%',
