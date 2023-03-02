@@ -10,6 +10,7 @@ Ext.define('Tualo.dashboard.view.login.Controller', {
     onLoginClick: async function(btn) {
         window.btn=btn;
         window.t=this;
+        
         let me = this,
             frm = me.getView().getValues(),
             result = await Tualo.Fetch.post(frm);
