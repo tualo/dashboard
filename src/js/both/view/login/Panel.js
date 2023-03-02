@@ -1,12 +1,14 @@
 Ext.define('Tualo.dashboard.view.login.Panel', {
     extend: 'Ext.form.Panel',
 
+    
     requires: [
         'Tualo.dashboard.view.login.Controller'
     ],
 
     controller: 'dashboard_login',
     xtype: 'dashboard_login',
+    
     bodyStyle: {
         backgroundColor: 'rgb(240,240,255)'
     },
@@ -16,6 +18,7 @@ Ext.define('Tualo.dashboard.view.login.Panel', {
         align: 'center',
         pack: 'center'
     },
+
     items:[{
         xtype: 'panel',
         itemId: 'loginform',
@@ -23,7 +26,6 @@ Ext.define('Tualo.dashboard.view.login.Panel', {
         border: true,
         autoSize: true,
 
-        
         items: [
             {
                 xtype: 'panel',
@@ -33,6 +35,7 @@ Ext.define('Tualo.dashboard.view.login.Panel', {
                 defaults: {
                     anchor: '100%'
                 },
+
                 items: [
                             
                     {
@@ -69,6 +72,7 @@ Ext.define('Tualo.dashboard.view.login.Panel', {
                         }
                     }
                 ],
+
                 buttons: [
                     {
                         text: 'Anmelden',
@@ -78,4 +82,5 @@ Ext.define('Tualo.dashboard.view.login.Panel', {
             }
         ]
     }]
+    
 });

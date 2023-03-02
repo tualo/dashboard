@@ -1,21 +1,18 @@
 Ext.define('Tualo.Application',{
-
     extend: 'Ext.app.Application',
-
     name: 'Tualo',
-
     quickTips: false,
     platformConfig: {
         desktop: {
             quickTips: true
         }
     },
-
     //controllers: ['Tualo.dashboard.controller.Application'],
     paths: {
         'Tualo': '.'
     },
     requires: [
+        'Ext.*',
         'Tualo.tualojs.Ajax'
     ],
     mainView: 'Tualo.dashboard.view.main.Panel',
@@ -26,12 +23,26 @@ Ext.define('Tualo.Application',{
         'logout': function(){}
     },
 
+    getAPIPath: ()=>{ return '../wawi/' },
+
+    /*
+    profiles: [
+        'Phone',
+        'Tablet'
+    ],
+    */
+    defaultToken: 'home',
+
+
     onUnmatchedRoute: function(token) {
         console.error('onUnmatchedRoute',token);
     },
 
-    launch: function() {
-        console.log('launch',this);
+    launch: function(profile) {
+        console.log('launch',arguments);
+        //Ext.Viewport.getController().onLaunch();
+        Ext.getBody().removeCls('launching');
+        this.callParent([profile]);
         this.registerRoutes();
     },
     getRoutes: function(){
