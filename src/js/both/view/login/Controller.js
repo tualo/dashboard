@@ -7,7 +7,7 @@ Ext.define('Tualo.dashboard.view.login.Controller', {
          
     },
 
-    onLoginClick: async () => {
+    onLoginClick: async function() {
 
         let me = this,
             frm = me.getView().getValues(),
