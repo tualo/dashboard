@@ -31,7 +31,7 @@ Ext.define('Tualo.dashboard.view.login.Panel', {
                 xtype: 'panel',
                 autoSize: true,
                 bodyPadding: 20,
-                width: 320,
+                // width: 320,
                 defaults: {
                     anchor: '100%'
                 },
