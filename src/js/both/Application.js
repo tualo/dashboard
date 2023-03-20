@@ -12,8 +12,8 @@ Ext.define('Tualo.Application',{
         'Tualo': '.'
     },
     requires: [
-        'Ext.*',
-        'Tualo.tualojs.Ajax'
+        'Ext.*'/*,
+        'Tualo.tualojs.Ajax'*/
     ],
     mainView: 'Tualo.dashboard.view.main.Panel',
     listeners: {
