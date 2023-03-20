@@ -25,6 +25,7 @@ Ext.define('Tualo.dashboard.view.login.Panel', {
         title: 'Anmeldung',
         border: true,
         width: '80%',
+        height: '80%',
 
         items: [
             {
