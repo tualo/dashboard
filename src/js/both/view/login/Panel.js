@@ -26,65 +26,57 @@ Ext.define('Tualo.dashboard.view.login.Panel', {
         border: true,
         width: '80%',
         height: '80%',
-
+        bodyPadding: 20,
+        // width: 320,
+        defaults: {
+            anchor: '100%'
+        },
         items: [
-            {
-                xtype: 'panel',
-                layout: 'fit',
-                bodyPadding: 20,
-                // width: 320,
-                defaults: {
-                    anchor: '100%'
-                },
-
-                items: [
                             
-                    {
-                        xtype: 'displayfield',
-                        value: 'Geben Sie hier Ihre Zugangsdaten ein'
-                    },
-                    {
-                        xtype: 'hiddenfield',
-                        name: 'forcelogin',
-                        value: '1'
-                    },
-                    {
-                        xtype: 'textfield',
-                        name: 'username',
-                        anchor: '100%',
-                        label: 'Login',
-                        value: '',
-                        //enableKeyEvents: true,
-                        listeners: {
-                            keypress: function(me, e, o) {
-                                if (e.keyCode === 13) {
-                                    me.up('panel').items.getAt(2).focus();
-                                }
-                            }
-                        }
-                    },
-                    {
-                        xtype: 'textfield',
-                        name: 'password',
-                        label: 'Passort',
-                        inputType: 'password',
-                        value: '',
-                        listeners: {
-                            keypress: function(me, e, o) {
-                                if (e.keyCode === 13) {
-                                    me.up('panel').up('panel').up().getController().onLoginClick();
-                                }
-                            }
+            {
+                xtype: 'displayfield',
+                value: 'Geben Sie hier Ihre Zugangsdaten ein'
+            },
+            {
+                xtype: 'hiddenfield',
+                name: 'forcelogin',
+                value: '1'
+            },
+            {
+                xtype: 'textfield',
+                name: 'username',
+                anchor: '100%',
+                label: 'Login',
+                value: '',
+                //enableKeyEvents: true,
+                listeners: {
+                    keypress: function(me, e, o) {
+                        if (e.keyCode === 13) {
+                            me.up('panel').items.getAt(2).focus();
                         }
                     }
-                ],
+                }
+            },
+            {
+                xtype: 'textfield',
+                name: 'password',
+                label: 'Passort',
+                inputType: 'password',
+                value: '',
+                listeners: {
+                    keypress: function(me, e, o) {
+                        if (e.keyCode === 13) {
+                            me.up('panel').up('panel').up().getController().onLoginClick();
+                        }
+                    }
+                }
+            }
+        ],
 
-                buttons: [
-                    {
-                        text: 'Anmelden',
-                        handler: 'onLoginClick'
-                    }
-                ]
+        buttons: [
+            {
+                text: 'Anmelden',
+                handler: 'onLoginClick'
             }
         ]
     }]
