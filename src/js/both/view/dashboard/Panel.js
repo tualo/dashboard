@@ -1,5 +1,30 @@
-Ext.define('Tualo.dashboard.view.wait.Panel', {
+Ext.define('Tualo.dashboard.view.dashboard.Panel', {
     extend: 'Ext.Panel',
+
+    layout: 'card',
+    defaults: {
+        header: {
+            defaults: {
+                ui: 'flat large'
+            }
+        }
+    },
+    lbar: {
+        xtype: 'panel',
+        reference: 'mainmenu',
+        ui: 'dark micro',
+        html: 'menu',
+        zIndex: 4
+    },
+    items: [{
+        xtype:'panel',
+        style:{
+            backgroundColor: 'green'
+        },
+        html: 'stage',
+    }]
+
+    /*
 
     viewModel: {
 		type: 'dashboard_dashboard'
@@ -58,12 +83,9 @@ Ext.define('Tualo.dashboard.view.wait.Panel', {
                 xtype: 'senioritybutton',
                 reference: 'senioritybutton',
             },
-            */
+            * /
             {
-                /*bind: {
-                  text: '{fullname}'
-                },
-                */
+                
                 text: ((typeof fullname == 'string') ? fullname : ''),
                 xtype: 'button',
                 reference: 'loginbutton',
@@ -107,7 +129,7 @@ Ext.define('Tualo.dashboard.view.wait.Panel', {
 
                 },
                 toggleHandler: 'onToggleMicro'
-            }/*,
+            }/ *,
             {
                 xtype: 'tbspacer',
                 bind: {
@@ -137,9 +159,9 @@ Ext.define('Tualo.dashboard.view.wait.Panel', {
                 pressed: false,
                 toggleHandler: 'onSearchToggle'
             }
-            */
+            * /
         ],
-        /*
+        / *
 
         items: [
             {
@@ -188,6 +210,7 @@ Ext.define('Tualo.dashboard.view.wait.Panel', {
                     xtype: 'panel'
                 }]
             }
-        ]*/
+        ] * /
     }]
+    */
 })
