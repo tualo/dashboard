@@ -66,7 +66,6 @@ Ext.define('Tualo.Application',{
     },
     ping: function(){
         let me=this;
-        console.log(1);
         Tualo.Ajax.request({
             url: Ext.getApplication().getAPIPath()+'dashboard/ping',
             json: function(o){

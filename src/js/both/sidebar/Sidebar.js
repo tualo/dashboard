@@ -8,6 +8,7 @@ Ext.define('Tualo.dashboard.widgets.Sidebar', {
 
     classCls: 'sidebar',
 
+    /*
     initialize: function() {
         var me = this;
 
@@ -21,6 +22,7 @@ Ext.define('Tualo.dashboard.widgets.Sidebar', {
             scope: me
         });
     },
+    */
 
     updateExpanded: function(value) {
         this.toggleCls('expanded', value);
