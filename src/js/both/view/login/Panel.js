@@ -29,7 +29,7 @@ Ext.define('Tualo.dashboard.view.login.Panel', {
         items: [
             {
                 xtype: 'panel',
-                
+                layout: 'fit',
                 bodyPadding: 20,
                 // width: 320,
                 defaults: {
