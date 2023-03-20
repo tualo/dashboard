@@ -74,7 +74,7 @@ Ext.define('Tualo.Application',{
                 if (o.success==false){
                     Ext.getApplication().redirectTo('dashboard_login');
                 }else{
-                    this.getMainView().setActiveItem(1);
+                    me.getMainView().setActiveItem(1);
                     /*
                     Ext.getApplication().redirectTo('dashboard_dashboard');
                     */
