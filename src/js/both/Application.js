@@ -23,7 +23,7 @@ Ext.define('Tualo.Application',{
         'logout': function(){}
     },
 
-    getAPIPath: ()=>{ return '../wawi/' },
+    getAPIPath: ()=>{ return '../' },
 
     /*
     profiles: [
@@ -31,7 +31,7 @@ Ext.define('Tualo.Application',{
         'Tablet'
     ],
     */
-    defaultToken: 'home',
+    defaultToken: 'dashboard_wait',
 
 
     onUnmatchedRoute: function(token) {
@@ -40,10 +40,10 @@ Ext.define('Tualo.Application',{
 
     launch: function(profile) {
         console.log('launch',arguments);
-        //Ext.Viewport.getController().onLaunch();
         Ext.getBody().removeCls('launching');
         this.callParent([profile]);
         this.registerRoutes();
+        this.ping()
     },
     getRoutes: function(){
         let routes = {};
@@ -67,15 +67,17 @@ Ext.define('Tualo.Application',{
         let me=this;
         console.log(1);
         Tualo.Ajax.request({
-            url: './dashboard/ping',
+            url: Ext.getApplication().getAPIPath()+'dashboard/ping',
             json: function(o){
                 me.sessionPing = o;
                 if (o.success==false){
-                    me.getMainView().setActiveItem(1);
+                    Ext.getApplication().redirectTo('dashboard_login');
+                    // me.getMainView().setActiveItem(1);
                 }else{
-                    me.getMainView().setActiveItem(2);
-                    window.o = o;
-                    window.f = me.getMainView().getComponent('dashboard_dashboard');
+                    Ext.getApplication().redirectTo('dashboard_dashboard');
+                    // me.getMainView().setActiveItem(2);
+                    // window.o = o;
+                    // window.f = me.getMainView().getComponent('dashboard_dashboard');
                     me.getMainView().getComponent('dashboard_dashboard').setSessionPing(o);
                 }
             }
