@@ -49,6 +49,7 @@ Ext.define('Tualo.Application',{
         let routes = {};
         for(let cls in Ext.ClassManager.classes){
             if (cls.indexOf('Tualo.routes.')==0){
+                console.debug('load routes',route.url,cls);
                 let route = Ext.create(cls);
                 routes[route.url+""]=route.handler;
                 
