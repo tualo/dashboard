@@ -24,10 +24,8 @@ Ext.define('Tualo.dashboard.view.login.Panel', {
         itemId: 'loginform',
         title: 'Anmeldung',
         border: true,
-        width: '80%',
-        height: '80%',
+        
         bodyPadding: 20,
-        // width: 320,
         defaults: {
             anchor: '100%'
         },
