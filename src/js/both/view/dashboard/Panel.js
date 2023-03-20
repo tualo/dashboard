@@ -1,7 +1,9 @@
 Ext.define('Tualo.dashboard.view.dashboard.Panel', {
     extend: 'Ext.Panel',
 
+    alias: "widget.dashboard_dashboard",
     layout: 'card',
+    /*
     defaults: {
         header: {
             defaults: {
@@ -9,6 +11,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
             }
         }
     },
+    */
     lbar: {
         xtype: 'panel',
         reference: 'mainmenu',
@@ -22,7 +25,10 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
             backgroundColor: 'green'
         },
         html: 'stage',
-    }]
+    }],
+    setSessionPing: function(data){
+        console.log('setSessionPing','data',data);
+    }
 
     /*
 

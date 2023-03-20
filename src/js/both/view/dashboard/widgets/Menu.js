@@ -1,7 +1,6 @@
-Ext.define('ualo.dashboard.Menu', {
+Ext.define('Tualo.dashboard.widgets.Menu', {
     extend: 'Tualo.dashboard.widgets.Sidebar',
-    xtype: 'mainmenu',
-
+    alias: 'widget.mainmenu',
     config: {
         selection: null
     },

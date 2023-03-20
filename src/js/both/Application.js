@@ -31,7 +31,7 @@ Ext.define('Tualo.Application',{
         'Tablet'
     ],
     */
-    defaultToken: 'dashboard_wait',
+    // defaultToken: 'dashboard_wait',
 
 
     onUnmatchedRoute: function(token) {
@@ -43,7 +43,8 @@ Ext.define('Tualo.Application',{
         Ext.getBody().removeCls('launching');
         this.callParent([profile]);
         this.registerRoutes();
-        this.ping()
+        this.getMainView().setActiveItem(0);
+        setTimeout(this.ping.bind(this),2000);
     },
     getRoutes: function(){
         let routes = {};
@@ -72,13 +73,13 @@ Ext.define('Tualo.Application',{
                 me.sessionPing = o;
                 if (o.success==false){
                     Ext.getApplication().redirectTo('dashboard_login');
-                    // me.getMainView().setActiveItem(1);
                 }else{
+                    this.getMainView().setActiveItem(1);
+                    /*
                     Ext.getApplication().redirectTo('dashboard_dashboard');
-                    // me.getMainView().setActiveItem(2);
-                    // window.o = o;
-                    // window.f = me.getMainView().getComponent('dashboard_dashboard');
+                    */
                     me.getMainView().getComponent('dashboard_dashboard').setSessionPing(o);
+                    
                 }
             }
         });
@@ -86,6 +87,7 @@ Ext.define('Tualo.Application',{
     
 
     onAppUpdate: function () {
+        /*
         Ext.Msg.confirm('Anwendung', 'Für diese Anwendung gibt es Änderungen, sollen diese geladen werden?',
             function (choice) {
                 if (choice === 'yes') {
@@ -93,5 +95,6 @@ Ext.define('Tualo.Application',{
                 }
             }
         );
+        */
     }
 });

@@ -15,8 +15,10 @@ Ext.define('Tualo.dashboard.view.main.Panel',{
                 xtype: 'panel',
                 width: 80,
                 height: 80,
-                html: '<div class="lds-ring"><div></div><div>OK</div><div></div><div></div></div>'
+                html: 'Einen Moment bitte...'
             }]
+        },{
+            xtype: 'dashboard_dashboard'
         }
     ],
     addView: function(viewcls,single,token) {
