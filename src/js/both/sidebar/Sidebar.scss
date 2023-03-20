@@ -1,6 +1,8 @@
+
 /*
 $sidebar-background-color: dynamic($neutral-dark-color);
 $sidebar-color: dynamic($neutral-light-color);
+*/
 $sidebar-font-size: dynamic(14px);
 $sidebar-font-size-big: dynamic(14px);
 $sidebar-item-padding: dynamic(16px);
@@ -12,7 +14,7 @@ $sidebar-icon-horizontal-spacing-big: dynamic($sidebar-item-padding-big);
 $sidebar-slide-width: dynamic(75vw);
 $sidebar-micro-width: dynamic($sidebar-icon-size + $sidebar-item-padding*2);
 $sidebar-micro-expanded-width: dynamic(256px);
-
+/*
 .sidebar {
     $sidebar-picture-size: $sidebar-icon-size*1.6;
     $sidebar-picture-size-big: $sidebar-icon-size-big*1.8;
