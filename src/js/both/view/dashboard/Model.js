@@ -8,5 +8,21 @@ Ext.define('Tualo.dashboard.view.dashboard.Model', {
         currentClient: '',
         currentClients: [],
         title: 'tualo'
+    },
+    stores: {
+        navItems: {
+
+            autoLoad: true,
+            type: 'tree',
+            listeners: {
+                load: 'onTreeLoad'
+            },
+            proxy: {
+                type: 'ajax',
+                reader: 'json',
+                url: '../dashboard/menu'
+            },
+            lazyFill: false
+        }
     }
 });

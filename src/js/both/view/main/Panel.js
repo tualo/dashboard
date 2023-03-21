@@ -1,8 +1,7 @@
 Ext.define('Tualo.dashboard.view.main.Panel',{
     extend: 'Ext.panel.Panel',
-    title: 'tualo',
     layout: 'card',
-    
+
     items: [
         {
             xtype: 'panel',
@@ -19,7 +18,8 @@ Ext.define('Tualo.dashboard.view.main.Panel',{
                 html: 'Einen Moment bitte...'
             }]
         },{
-            xtype: 'dashboard_dashboard'
+            xtype: 'dashboard_dashboard',
+            itemId: 'dashboard_dashboard',
         }
     ],
     addView: function(viewcls,single,token) {

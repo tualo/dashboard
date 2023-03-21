@@ -13,6 +13,7 @@ Ext.define('Tualo.Application',{
     },
     requires: [
         'Ext.*',
+        'Tualo.*',
         'Tualo.tualojs.Ajax'
     ],
     mainView: 'Tualo.dashboard.view.main.Panel',
@@ -23,7 +24,7 @@ Ext.define('Tualo.Application',{
         'logout': function(){}
     },
 
-    getAPIPath: ()=>{ return '../' },
+    getAPIPath: ()=>{ return './' },
 
     /*
     profiles: [
@@ -43,8 +44,8 @@ Ext.define('Tualo.Application',{
         Ext.getBody().removeCls('launching');
         this.callParent([profile]);
         this.registerRoutes();
-        this.getMainView().setActiveItem(0);
-        setTimeout(this.ping.bind(this),2000);
+        this.getMainView().setActiveItem(this.getMainView().getComponent('loading'));
+        this.ping();
     },
     getRoutes: function(){
         let routes = {};

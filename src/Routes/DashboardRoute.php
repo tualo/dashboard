@@ -58,7 +58,7 @@ class DashboardRoute implements IRoute{
                     TualoApplication::result('data', $_SESSION['tualoapplication']['clients'] );
                     TualoApplication::result('current', $_SESSION['tualoapplication']['client'] );
                     TualoApplication::result('success', true );
-                }catch(Exception $e){
+                }catch(\Exception $e){
                     TualoApplication::result('msg', $e->getMessage());
                 }
             }
@@ -146,7 +146,7 @@ class DashboardRoute implements IRoute{
 
 
 
-                }catch(Exception $e){
+                }catch(\Exception $e){
                     TualoApplication::result('msg', $e->getMessage());
                 }
             }
