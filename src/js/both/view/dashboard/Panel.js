@@ -3,7 +3,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
 
     alias: "widget.dashboard_dashboard",
     requires: [
-        'Tualo.dashboard.widgets.Menu'
+        /*'Tualo.dashboard.widgets.Menu'*/
     ],
     layout: {
         type: 'hbox',
