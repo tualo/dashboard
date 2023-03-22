@@ -82,9 +82,15 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
         }]
     },{
         xtype: 'panel',
+        itemId: 'stage',
         flex: 1,
-        html: 'stage',
+        layout: 'card'
     }],
+    addView: function(cls,single,token){
+        let c = Ext.create(cls);
+        this.getCmp('stage').add(c);
+        this.getCmp('stage').setActiveItem(c);
+    },
     setSessionPing: function(data){
         console.log('setSessionPing','data',data);
     }
