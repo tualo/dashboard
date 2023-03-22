@@ -3,7 +3,9 @@ Ext.define('Tualo.dashboard.view.dashboard.Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.dashboard_dashboard',
 
-    onMenuItemSelect: function(){
+    onMenuItemSelect: function(event,item,node){
+        
+        Ext.getApplication().redirectTo(node.get('routeTo'));
         console.log('onMenuItemSelect',arguments)
     },
     onMenuItemClick: function(list,record,item,index){
