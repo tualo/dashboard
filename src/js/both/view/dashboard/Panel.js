@@ -87,9 +87,10 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
         layout: 'card'
     }],
     addView: function(cls,single,token){
-        let c = Ext.create(cls);
-        this.getCmp('stage').add(c);
-        this.getCmp('stage').setActiveItem(c);
+        let stage = this.getComponent('stage'),
+            c = Ext.create(cls);
+        stage.add(c);
+        stage.setActiveItem(c);
     },
     setSessionPing: function(data){
         console.log('setSessionPing','data',data);
