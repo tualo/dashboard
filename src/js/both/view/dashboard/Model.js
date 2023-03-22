@@ -20,7 +20,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Model', {
             proxy: {
                 type: 'ajax',
                 reader: 'json',
-                url: '../dashboard/menu'
+                url: './dashboard/menu'
             },
             lazyFill: false
         }
