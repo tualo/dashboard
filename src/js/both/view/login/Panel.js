@@ -1,5 +1,5 @@
 Ext.define('Tualo.dashboard.view.login.Panel', {
-    extend: 'Ext.form.Panel',
+    extend: 'Tualo.MyForm',
 
     
     requires: [
