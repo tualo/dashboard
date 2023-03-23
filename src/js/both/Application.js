@@ -73,9 +73,10 @@ Ext.define('Tualo.Application',{
             json: function(o){
                 me.sessionPing = o;
                 if (o.success==false){
-                    Ext.getApplication().redirectTo('dashboard_login');
-                }else{
+                    //Ext.getApplication().redirectTo('dashboard_login');
                     me.getMainView().setActiveItem(1);
+                }else{
+                    me.getMainView().setActiveItem(2);
                     /*
                     Ext.getApplication().redirectTo('dashboard_dashboard');
                     */

@@ -18,6 +18,9 @@ Ext.define('Tualo.dashboard.view.main.Panel',{
                 html: 'Einen Moment bitte...'
             }]
         },{
+            xtype: 'dashboard_login',
+            itemId: 'dashboard_login',
+        },{
             xtype: 'dashboard_dashboard',
             itemId: 'dashboard_dashboard',
         }
