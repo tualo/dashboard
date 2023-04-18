@@ -57,7 +57,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
     items: [
         
         {
-        width: 250,
+        width: 230,
         split: true,
         reference: 'treelistContainer',
         layout: {

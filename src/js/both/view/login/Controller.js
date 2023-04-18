@@ -21,6 +21,7 @@ Ext.define('Tualo.dashboard.view.login.Controller', {
             Ext.toast(result.msg);
         }else{
             me.getView().fireEvent('loggedIn');
+            me.getMainView().setActiveItem(0);
             window.location.reload();
         }
         

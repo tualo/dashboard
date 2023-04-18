@@ -6,8 +6,28 @@ Ext.define('Tualo.dashboard.view.dashboard.Controller', {
     onMenuItemSelect: function(event,item,node){
         console.log('onMenuItemSelect',arguments)
     },
+    parseParam: function(param){
+        let pairs=param.split('&');
+        let p={};
+        pairs.forEach((item)=>{
+            let keyValue=item.split('=');
+            p[keyValue[0]] = keyValue[1];
+        });
+        return p;
+    },
     onMenuItemClick: function(view,record,node){
-
+        if (Ext.isEmpty(record.node.get('routeTo'))){
+            
+            if (
+                !Ext.isEmpty(record.node.get('component')) &&
+                record.node.get('component')=='cmp_ds'
+            ){
+                let p = this.parseParam(record.node.get('param'));
+                record.node.set('routeTo','ds/'+p['t'].toLowerCase());
+            }
+            
+        }
+        if (!Ext.isEmpty(record.node.get('routeTo')))
         Ext.getApplication().redirectTo(record.node.get('routeTo'));
         console.log('onMenuItemClick',record)
     },

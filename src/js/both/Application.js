@@ -13,8 +13,7 @@ Ext.define('Tualo.Application',{
     },
     requires: [
         'Ext.*',
-        'Tualo.*',
-        'Tualo.tualojs.Ajax'
+        'Tualo.*'
     ],
     mainView: 'Tualo.dashboard.view.main.Panel',
     listeners: {
@@ -34,7 +33,6 @@ Ext.define('Tualo.Application',{
     */
     // defaultToken: 'dashboard_wait',
 
-
     onUnmatchedRoute: function(token) {
         console.error('onUnmatchedRoute',token);
     },
@@ -42,6 +40,10 @@ Ext.define('Tualo.Application',{
     launch: function(profile) {
         console.debug('Tualo.Application','launch',arguments);
         Ext.getBody().removeCls('launching');
+        Ext.on('routereject',()=>{
+            console.error('routereject',arguments)
+            return true;
+        })
         this.callParent([profile]);
         this.registerRoutes();
         this.getMainView().setActiveItem(this.getMainView().getComponent('loading'));
@@ -64,7 +66,11 @@ Ext.define('Tualo.Application',{
         this.setRoutes(this.getRoutes());
     },
     addView: function(viewcls,single,token){
+        
         this.getMainView().getComponent('dashboard_dashboard').addView(viewcls,single,token);
+    },
+    getCurrentView: function(){
+        return Ext.getApplication().getMainView().down('dashboard_dashboard').getComponent('stage');
     },
     ping: function(){
         let me=this;

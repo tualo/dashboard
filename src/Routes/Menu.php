@@ -15,7 +15,7 @@ class Menu implements IRoute{
                         "text", macc_menu.title,
                         "iconCls", macc_menu.iconcls,
                         "component", macc_menu.component,
-                        "routeTo", concat("#",macc_menu.component),
+                        "routeTo", concat("#",macc_menu.route_to),
                         "param", macc_menu.param
                 ) menuobject,
                 macc_menu.id,
