@@ -38,7 +38,6 @@ Ext.define('Tualo.Application',{
     },
 
     launch: function(profile) {
-        console.debug('Tualo.Application','launch',arguments);
         Ext.getBody().removeCls('launching');
         Ext.on('routereject',()=>{
             console.error('routereject',arguments)
@@ -54,9 +53,7 @@ Ext.define('Tualo.Application',{
         for(let cls in Ext.ClassManager.classes){
             if (cls.indexOf('Tualo.routes.')==0){
                 let route = Ext.create(cls);
-                console.debug('Tualo.Application','load routes',route.url,cls);
                 routes[route.url+""]=route.handler;
-                
             }
         }
         return routes;

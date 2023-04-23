@@ -27,6 +27,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
     },
     */
     header: {
+        hidden: true,
         items: [{
             xtype: 'button',
             text: 'Options',
@@ -54,9 +55,12 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
             toggleHandler: 'onToggleMicro'
         }]
     },
+    listeners: {
+        "boxready": "onBoxReady"
+    },
     items: [
         
-        {
+    {
         width: 230,
         split: true,
         reference: 'treelistContainer',
@@ -67,19 +71,29 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
         border: true,
         ui: 'nav',
         scrollable: 'y',
-        items: [{
-            ui: 'nav',
-            xtype: 'treelist',
-            reference: 'treelist',
-            bind: {
-                store: '{navItems}'
-            },
-            listeners: {
-                itemclick: 'onMenuItemClick',
-                select: 'onMenuItemSelect'
-            }
+        dockedItems: [{ 
+            xtype: 'dashboard_searchmenu',
+            dock: 'top'
+        },{ 
+            xtype: 'dashboard_profilemenu',
+            dock: 'bottom',
+            height: 150
+        }],
+        items: [
+            {
+                ui: 'nav',
+                xtype: 'treelist',
+                reference: 'treelist',
+                bind: {
+                    store: '{navItems}'
+                },
+                listeners: {
+                    itemclick: 'onMenuItemClick',
+                    select: 'onMenuItemSelect'
+                }
 
-        }]
+            }
+        ]
     },{
         xtype: 'panel',
         itemId: 'stage',

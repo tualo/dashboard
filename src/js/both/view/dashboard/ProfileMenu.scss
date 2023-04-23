@@ -1,0 +1,53 @@
+.application-profile-header-avatar img {
+    width: 24px;
+    border-radius: 50%;
+    border: 1px solid #adb3b8;
+}
+
+img.application-profile-header-avatar  {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    border-radius: 50%;
+    border: 1px solid #adb3b8;
+}
+
+.application-profile-header-info{
+    font-weight: normal;
+    font-size: 0.8em;
+    color: #adb3b8;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.application-profile-header{
+    padding-top: 10px;
+}
+.application-profile-header-name {
+    font-weight: 900;
+    font-size: 1.2em;
+    color: #adb3b8; 
+    padding-top: 10px;
+}
+
+.application-profile-header-client {
+    font-weight: normal;
+    font-size: 0.8em;
+    color: #adb3b8; 
+}
+
+.application-profile-header-gst {
+    font-weight: normal;
+    font-size: 0.6em;
+    color: #adb3b8;
+}
+
+.application-profile-header-bkr {
+    font-weight: normal;
+    font-size: 0.6em;
+    color: #adb3b8;
+}
+
+.x-form-bar-trigger:before {
+    content: '\f0c9'
+}

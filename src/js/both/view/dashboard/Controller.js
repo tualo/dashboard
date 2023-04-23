@@ -3,6 +3,9 @@ Ext.define('Tualo.dashboard.view.dashboard.Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.dashboard_dashboard',
 
+    onBoxReady: function(x){
+        this.onToggleMicro(null,true);
+    },
     onMenuItemSelect: function(event,item,node){
         console.log('onMenuItemSelect',arguments)
     },
@@ -58,8 +61,19 @@ Ext.define('Tualo.dashboard.view.dashboard.Controller', {
 
         treelist.setConfig(menuitem.config, menuitem.checked);
     },
+    onSearchFieldFocus: function(fld,focus){
+        var treelist = this.lookupReference('treelist');
 
-    onToggleMicro: function (button, pressed) {
+        console.log('onSearchFieldFocus',treelist)
+        if (focus){
+            this.onToggleMicro(null,false);
+        }else{
+            // this.onToggleMicro(null,true);
+        }
+
+
+    },
+    onToggleMicro: function(button, pressed) {
         var treelist = this.lookupReference('treelist'),
             navBtn = this.lookupReference('navBtn'),
             ct = treelist.ownerCt;

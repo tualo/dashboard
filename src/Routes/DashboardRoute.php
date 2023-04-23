@@ -3,7 +3,7 @@ namespace Tualo\Office\Dashboard\Routes;
 use Tualo\Office\Basic\TualoApplication;
 use Tualo\Office\Basic\Route;
 use Tualo\Office\Basic\IRoute;
-
+use YoHang88\LetterAvatar\LetterAvatar;
 
 class DashboardRoute implements IRoute{
     public static function register(){
@@ -11,6 +11,8 @@ class DashboardRoute implements IRoute{
         Route::add('/dashboard/ping',function(){
             TualoApplication::result('success',false);
         
+            try{
+
             if (
                    isset($_SESSION['tualoapplication']['loggedIn'])
                 && ($_SESSION['tualoapplication']['loggedIn']==true)
@@ -19,12 +21,45 @@ class DashboardRoute implements IRoute{
                 && isset($_SESSION['tualoapplication']['client']) 
                 && isset($_SESSION['tualoapplication']['username'])
             ){
+                $db = TualoApplication::get('session')->getDB();
                 TualoApplication::result('username', $_SESSION['tualoapplication']['username'] );
                 TualoApplication::result('clients', $_SESSION['tualoapplication']['clients'] );
                 TualoApplication::result('client', $_SESSION['tualoapplication']['client'] );
                 TualoApplication::result('fullname', $_SESSION['tualoapplication']['fullname'] );
+                TualoApplication::result('gst','-');
+                TualoApplication::result('bkr','-');
+                try{
+                    TualoApplication::result('gst', $db->singleValue('select getSessionCurrentOffice() v',[],'v') );
+                }catch(\Exception $e){
+                    
+                }
+                try{
+                    TualoApplication::result('bkr', $db->singleValue('select getSessionCurrentBKR() v',[],'v') );
+                }catch(\Exception $e){
+                        
+                }
+                $avatar = new LetterAvatar($_SESSION['tualoapplication']['fullname'], 'square', 64);
+                TualoApplication::result('avatar',  $avatar->__toString());
+
+                $avatar = new LetterAvatar($_SESSION['tualoapplication']['client'], 'square', 64);
+                TualoApplication::result('clientavatar',  $avatar->__toString());
+
+                $avatar = new LetterAvatar($db->singleValue('select getSessionCurrentOffice() v',[],'v'), 'square', 64);
+                //   $avatar->setColor($backgroundColor, $foregroundColor)
+                TualoApplication::result('gstavatar',  $avatar->__toString());
+
+                $avatar = new LetterAvatar($db->singleValue('select getSessionCurrentBKR() v',[],'v'), 'square', 64);
+                //   $avatar->setColor($backgroundColor, $foregroundColor)
+                TualoApplication::result('bkravatar',  $avatar->__toString());
+
+
                 TualoApplication::result('success', true );
             }
+
+        }catch(\Exception $e){
+            TualoApplication::result('msg', $e->getMessage());
+        }
+
             TualoApplication::contenttype('application/json');
         },array('get'),false);
 
