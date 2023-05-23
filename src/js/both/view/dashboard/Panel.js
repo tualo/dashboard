@@ -72,6 +72,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
         ui: 'nav',
         scrollable: 'y',
         dockedItems: [{ 
+            
             xtype: 'dashboard_searchmenu',
             dock: 'top'
         },{ 
@@ -98,7 +99,11 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
         xtype: 'panel',
         itemId: 'stage',
         flex: 1,
-        layout: 'card'
+        layout: 'card'/*,
+        dockedItems: [{ 
+            xtype: 'dashboard_windowmenu',
+            dock: 'bottom'
+        }]*/
     }],
     addView: function(cls,single,token){
         let stage = this.getComponent('stage'),

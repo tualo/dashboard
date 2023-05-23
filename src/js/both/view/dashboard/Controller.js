@@ -30,8 +30,15 @@ Ext.define('Tualo.dashboard.view.dashboard.Controller', {
             }
             
         }
-        if (!Ext.isEmpty(record.node.get('routeTo')))
-        Ext.getApplication().redirectTo(record.node.get('routeTo'));
+        if (!Ext.isEmpty(record.node.get('routeTo'))){
+            if (record.event.ctrlKey===true){
+                window.open('#'+record.node.get('routeTo'),'_blank');
+//                Ext.getApplication().redirectTo(record.node.get('routeTo'));
+            }else{
+                Ext.getApplication().redirectTo(record.node.get('routeTo'));
+            }
+        }
+        
         console.log('onMenuItemClick',record)
     },
 
