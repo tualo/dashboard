@@ -13,7 +13,7 @@ Ext.define('Tualo.dashboard.view.login.Controller', {
 
         let me = this,
             frm = me.getView().getValues(),
-            result = await Tualo.Fetch.post(frm);
+            result = await Tualo.Fetch.post('',frm);
         console.log(result);
         if (result.success==false){
             me.getView().addCls('panel-shake')
