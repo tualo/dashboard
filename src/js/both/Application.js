@@ -13,7 +13,8 @@ Ext.define('Tualo.Application',{
     },
     requires: [
         'Ext.*',
-        'Tualo.*'
+        'Tualo.*',
+        'IconFont.*'
     ],
     mainView: 'Tualo.dashboard.view.main.Panel',
     listeners: {
