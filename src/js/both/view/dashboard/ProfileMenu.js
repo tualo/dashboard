@@ -13,8 +13,8 @@ Ext.define('Tualo.dashboard.view.dashboard.ProfileMenu', {
             client: 'Tualo',
             fullname: 'Thomas Hoffmann',
             login: 'thoffmann',
-            avatar: 'https://www.gravatar.com/avatar/0c1c2b3c4d5e6f7a8b9c0d1e2f3a4b5c?s=200&d=mm&r=g',
-            clientavatar: 'https://www.gravatar.com/avatar/0c1c2b3c4d5e6f7a8b9c0d1e2f3a4b5c?s=200&d=mm&r=g',
+            avatar: '',
+            clientavatar: '',
             gst: 'GST 001',
             bkr: 'BKR 001'
         },
