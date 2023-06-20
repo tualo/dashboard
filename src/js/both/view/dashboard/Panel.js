@@ -105,9 +105,10 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
             dock: 'bottom'
         }]*/
     }],
-    addView: function(cls,single,token){
+    addView: function(cls,options){
+
         let stage = this.getComponent('stage'),
-            c = Ext.create(cls);
+            c = Ext.create(cls,options||{});
         stage.add(c);
         stage.setActiveItem(c);
     },
