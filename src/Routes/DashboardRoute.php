@@ -67,7 +67,7 @@ class DashboardRoute implements IRoute{
             }
 
             TualoApplication::contenttype('application/json');
-        },array('get'),false);
+        },array('get','post'),false);
 
         Route::add('/dashboard/(?P<file>[\/.\w\d]+).js',function($matches){
             if (file_exists(dirname(__DIR__).'/js/'.$matches['file'].'.js')){
