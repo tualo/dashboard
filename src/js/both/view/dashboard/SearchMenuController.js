@@ -38,8 +38,8 @@ Ext.define('Tualo.dashboard.view.dashboard.SearchMenuController', {
                         &&  (Ext.ClassManager.classes[className].globalsearch.title!='not set')
                     ){
                         if (
-                            (Ext.ClassManager.classes[className].globalsearch.title.indexOf(searchvalue)>=0) ||
-                            (Ext.ClassManager.classes[className].globalsearch.table_name.indexOf(searchvalue)>=0)
+                            (Ext.ClassManager.classes[className].globalsearch.title.toLowerCase().indexOf(searchvalue)>=0) ||
+                            (Ext.ClassManager.classes[className].globalsearch.table_name.toLowerCase().indexOf(searchvalue)>=0)
                         ){
                             list.push({ 
                                 text: Ext.ClassManager.classes[className].globalsearch.title,
