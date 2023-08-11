@@ -15,7 +15,7 @@ Ext.define('Tualo.dashboard.view.dashboard.WindowMenu', {
         me.callParent(arguments);
         try{
             if(me.up().up().getItemId()=='stage'){
-                me.up().up().on('beforeadd',this.beforeadd,me);
+                // me.up().up().on('beforeadd',this.beforeadd,me);
             }
         }catch(e){
             

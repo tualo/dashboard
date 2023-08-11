@@ -64,7 +64,6 @@ Ext.define('Tualo.Application',{
         this.setRoutes(this.getRoutes());
     },
     addView: function(viewcls,single,token){
-        
         this.getMainView().getComponent('dashboard_dashboard').addView(viewcls,single,token);
     },
     getCurrentView: function(){
