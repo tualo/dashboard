@@ -166,7 +166,7 @@ class DashboardRoute implements IRoute{
                         // Test DB Access
                         if ( is_null( $session->getDB() ) ){
                             TualoApplication::result('success',false);
-                            TualoApplication::result('msg','Felher beim Zugriff auf die Datenbank');
+                            TualoApplication::result('msg','Fehler beim Zugriff auf die Datenbank');
 //                            $session->destroy();
                         }else{
                             

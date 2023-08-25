@@ -7,3 +7,4 @@ require_once "Compiler.php";
 require_once "Routes/DashboardRoute.php";
 require_once "Routes/Menu.php";
 require_once "Routes/Avatar.php";
+require_once "Routes/JSLoader.php";

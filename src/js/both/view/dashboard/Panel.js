@@ -99,11 +99,26 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
         xtype: 'panel',
         itemId: 'stage',
         flex: 1,
-        layout: 'card'/*,
+        layout: 'card',/*,
         dockedItems: [{ 
             xtype: 'dashboard_windowmenu',
             dock: 'bottom'
         }]*/
+        items: [
+            {
+                xtype: 'panel',
+                layout: 'card',
+                listeners: {
+                    boxready: 'onDashboardReady'
+                }/*,
+                initComponent: function(){
+                    console.log('initComponent','DASHBOARD',arguments);
+                }*/
+            }
+            /*
+            
+            */
+        ]
     }],
     addView: function(cls,options){
 
