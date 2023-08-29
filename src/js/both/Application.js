@@ -1,3 +1,6 @@
+Ext.Loader.setPath('Tualo.dashboard', './jsdashboard');
+Ext.Loader.setPath('Tualo.dashboard.lazy', './jsdashboard');
+
 Ext.define('Tualo.Application',{
     extend: 'Ext.app.Application',
     name: 'Tualo',

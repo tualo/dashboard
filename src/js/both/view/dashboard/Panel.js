@@ -78,7 +78,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
         },{ 
             xtype: 'dashboard_profilemenu',
             dock: 'bottom',
-            height: 150
+            // height: 150
         }],
         items: [
             {
