@@ -31,7 +31,7 @@ Ext.define('Tualo.dashboard.MenuProfile', {
         "boxready": "onBoxReady"
     },
     layout: 'fit',
-    height: 88,
+    height: 132,
     items: [
             
         {

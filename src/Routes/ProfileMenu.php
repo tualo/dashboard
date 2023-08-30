@@ -11,18 +11,60 @@ class ProfileMenu implements IRoute{
         $menuData=$db->direct('
 
             select * from (
+
+                
                 select 
                     json_object(
                         "nodeId", getSessionUser(),
                         "text", if(getSessionUserFullName()="",getSessionUser(),getSessionUserFullName()),
-                        "iconCls", "fa fa-user",
+                        "iconCls", "icon-avatar user-avatar",
                         "component", "",
+                        "leaf", 1=1,
                         "routeTo", "#profile",
                         "param", ""
                     ) menuobject,
                     getSessionUser() id,
                     "" path2,
                     0 priority
+
+                union
+                    
+
+                    select
+
+                    json_object(
+                        "nodeId", concat("current_",database()),
+                        "text", concat("Aktuell: ",database()),
+                        "iconCls", "icon-avatar client-avatar",
+                        "component", "",
+                        "routeTo", concat("#"),
+                        "param", "",
+                        "children",json_arrayagg(menuobject)
+                    ) menuobject,
+                    concat("current_",database()) id,
+                    "" path2,
+                    1 priority
+
+                    from (
+                    select 
+
+                    json_object(
+                        "nodeId", concat("switch_",client),
+                        "text", client,
+                        "iconCls", "fa fa-circle",
+                        "component", "",
+                        "leaf", 1=1,
+                        "routeTo", concat("#profile/switchclient/",client),
+                        "param", ""
+                    ) menuobject,
+                    concat("switch_",client) id,
+                    "" path2,
+                    1 priority
+                from                     
+                VIEW_SESSION_CLIENTS
+                where database()<>client
+                ) x
+
                 union
 
                 select 
@@ -31,28 +73,30 @@ class ProfileMenu implements IRoute{
                         "text", "Abmelden",
                         "iconCls", "fa fa-door-open",
                         "component", "",
+                        "leaf", 1=1,
                         "routeTo", "#profile/logout",
                         "param", ""
                     ) menuobject,
                     "profile_logout" id,
                     "" path2,
-                    1 priority
+                    999 priority
             ) m 
 
             having path2={node}
             order by priority
         ',['node'=>$node]+$_SESSION['tualoapplication']
         );
+        
         foreach($menuData as $md){
             $m=is_string($md['menuobject'])?json_decode($md['menuobject'],true):$md['menuobject'];
-            $submenu = self::menu($db,$m['nodeId']);
+            /*$submenu = self::menu($db,$m['nodeId']);
             if ($submenu){
                 $m['children']=$submenu;
             }else{
                 $m['leaf']=true;
-            }
+            }*/
             $menu[]=$m;
-        }
+        } 
         return $menu;
     }
     public static function register(){
