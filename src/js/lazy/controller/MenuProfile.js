@@ -1,16 +1,7 @@
 Ext.define('Tualo.dashboard.controller.MenuProfile', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.menu_profile',   
-    onBoxReady: function(x){
-        console.log('1')
-        /*
-        var treelist = this.lookupReference('treelist'),
-            navBtn = this.lookupReference('navBtn'),
-            ct = treelist.ownerCt;
-
-        treelist.setMicro(true);
-        */
-    },
+    
     onTreeLoad: function(){
         var treelist = this.lookupReference('treelist');
         this.onToggleNav(null,true); // kleiner nachlade trick
@@ -57,11 +48,15 @@ Ext.define('Tualo.dashboard.controller.MenuProfile', {
     },
     onResize: function(fld,width){
         console.log(fld,width);
+        let treelist = this.lookupReference('treelist'),
+        pressed=true;
         // fld.getViewModel().set('width',width);
         if (width < 100){
-            this.onToggleMicro(null,true);
+            pressed=true;
         }else{
-            this.onToggleMicro(null,false);
+            pressed=false;
         }
+        treelist[pressed ? 'addCls' : 'removeCls']('avatar-small');
+        this.onToggleMicro(null,pressed);
     },
 });
