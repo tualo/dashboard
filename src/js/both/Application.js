@@ -15,6 +15,7 @@ Ext.define('Tualo.Application',{
     debug: false,
     getDebug: function(){
         return this.debug;
+        
     },
     enableDebugXType: function(){
         let orig = Ext.ClassManager.instantiateByAlias
