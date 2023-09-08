@@ -1,6 +1,8 @@
 Ext.Loader.setPath('Tualo.dashboard', './jsdashboard');
 Ext.Loader.setPath('Tualo.dashboard.lazy', './jsdashboard');
 
+
+
 Ext.define('Tualo.Application',{
     extend: 'Ext.app.Application',
     name: 'Tualo',
@@ -9,6 +11,16 @@ Ext.define('Tualo.Application',{
         desktop: {
             quickTips: true
         }
+    },
+    enableDebugXType: function(){
+        let orig = Ext.ClassManager.instantiateByAlias
+        Ext.ClassManager.instantiateByAlias = function(orig){
+                return function() {
+                        let alias = arguments[0];
+                        console.debug('load alias',alias);
+                        return orig.apply(this, arguments);
+                }
+        }(orig);
     },
     //controllers: ['Tualo.dashboard.controller.Application'],
     paths: {
