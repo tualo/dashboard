@@ -89,6 +89,25 @@ Ext.define('Tualo.Application',{
     getCurrentView: function(){
         return Ext.getApplication().getMainView().down('dashboard_dashboard').getComponent('stage');
     },
+    updateWindowTitle: function(title){
+
+        try{
+            let title = this.sessionPing.client+': ',
+                currentItem = Ext.getApplication().getMainView().down('dashboard_dashboard').getComponent('stage').getLayout().getActiveItem();
+
+            if ((typeof currentItem.getTitle=='function') && (currentItem.getTitle())){
+                title += currentItem.getTitle();
+            }else if ((typeof currentItem.getWindowTitle=='function') && (currentItem.getWindowTitle())){
+                title += currentItem.getWindowTitle();
+            }else{
+                title += 'Tualo';
+            }
+            window.document.title = title;
+        }catch(e){
+            console.error(e);
+        }
+        
+    },
     ping: function(){
         let me=this;
         Tualo.Ajax.request({
@@ -99,6 +118,7 @@ Ext.define('Tualo.Application',{
                     //Ext.getApplication().redirectTo('dashboard_login');
                     me.getMainView().setActiveItem(1);
                 }else{
+                    me.updateWindowTitle();
                     me.getMainView().setActiveItem(2);
                     /*
                     Ext.getApplication().redirectTo('dashboard_dashboard');

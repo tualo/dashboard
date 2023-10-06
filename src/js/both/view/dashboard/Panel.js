@@ -126,6 +126,8 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
             c = Ext.create(cls,options||{});
         stage.add(c);
         stage.setActiveItem(c);
+
+        Ext.getApplication().updateWindowTitle();
     },
     setSessionPing: function(data){
         console.log('setSessionPing','data',data);
