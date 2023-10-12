@@ -22,6 +22,7 @@ Ext.define('Tualo.dashboard.view.main.Controller', {
                     me.getView().setActiveItem(1);
                 }else{
                     me.getView().setActiveItem(2);
+                    
                 }
             }
         });

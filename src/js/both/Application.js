@@ -108,6 +108,16 @@ Ext.define('Tualo.Application',{
         }
         
     },
+
+    pingTest: async function(){
+        let res = await ( await fetch(Ext.getApplication().getAPIPath()+'dashboard/ping') ).json();
+        console.log(res);
+        if (res.success==false){
+            alert('not logged in');
+        }else{
+            setTimeout(this.pingTest.bind(this),10000);
+        }
+    },
     ping: function(){
         let me=this;
         Tualo.Ajax.request({
@@ -120,6 +130,7 @@ Ext.define('Tualo.Application',{
                 }else{
                     me.updateWindowTitle();
                     me.getMainView().setActiveItem(2);
+                    setTimeout(me.pingTest.bind(me),10000);
                     /*
                     Ext.getApplication().redirectTo('dashboard_dashboard');
                     */

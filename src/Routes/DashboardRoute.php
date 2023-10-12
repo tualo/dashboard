@@ -22,12 +22,20 @@ class DashboardRoute implements IRoute{
                 ){
                     $db = TualoApplication::get('session')->getDB();
                     if (!is_null($db)){
+
                         TualoApplication::result('username', $_SESSION['tualoapplication']['username'] );
                         TualoApplication::result('clients', $_SESSION['tualoapplication']['clients'] );
                         TualoApplication::result('client', $_SESSION['tualoapplication']['client'] );
                         TualoApplication::result('fullname', $_SESSION['tualoapplication']['fullname'] );
                         TualoApplication::result('gst','-');
                         TualoApplication::result('bkr','-');
+                        
+                        if(isset( $_SESSION['tualoapplication']['last_contact'] ))
+                        TualoApplication::result('lc', $_SESSION['tualoapplication']['last_contact']);
+                        @session_start();
+                        $_SESSION['tualoapplication']['last_contact'] = time();
+                        @session_commit();
+
                         try{
                             TualoApplication::result('gst', $db->singleValue('select getSessionCurrentOffice() v',[],'v') );
                             $avatar = new LetterAvatar($db->singleValue('select getSessionCurrentOffice() v',[],'v'), 'square', 64);
