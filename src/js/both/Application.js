@@ -115,7 +115,7 @@ Ext.define('Tualo.Application',{
         if (res.success==false){
             alert('not logged in');
         }else{
-            setTimeout(this.pingTest.bind(this),10000);
+            setTimeout(this.pingTest.bind(this),60000);
         }
     },
     ping: function(){
