@@ -218,7 +218,7 @@ class DashboardRoute implements IRoute{
             TualoApplication::result('success', false );
             try{
                 $table = DSTable::instance('dashboard');
-                $table->read();
+                $table->sort('position','asc')->read();
                 TualoApplication::result('data', $table->get() );
                 TualoApplication::result('success', true );
             }catch(\Exception $e){
