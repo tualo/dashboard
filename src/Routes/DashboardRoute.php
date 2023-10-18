@@ -3,6 +3,7 @@ namespace Tualo\Office\Dashboard\Routes;
 use Tualo\Office\Basic\TualoApplication;
 use Tualo\Office\Basic\Route;
 use Tualo\Office\Basic\IRoute;
+use Tualo\Office\DS\DSTable;
 use YoHang88\LetterAvatar\LetterAvatar;
 
 class DashboardRoute implements IRoute{
@@ -209,6 +210,21 @@ class DashboardRoute implements IRoute{
             $data = file_get_contents( $path."/src/css/shake.css" );
             TualoApplication::body( $data );
             TualoApplication::contenttype('text/css');
+        },array('get','post'),false);
+
+
+        Route::add('/dashboard/parts',function($matches){
+            TualoApplication::contenttype('application/json');
+            TualoApplication::result('success', false );
+            try{
+                $table = DSTable::instance('dashboard');
+                $table->read();
+                TualoApplication::result('data', $table->get() );
+                TualoApplication::result('success', true );
+            }catch(\Exception $e){
+                TualoApplication::result('msg', $e->getMessage());
+            }
+
         },array('get','post'),false);
 
     }

@@ -40,6 +40,7 @@ Ext.define('Tualo.Application',{
     listeners: {
         unmatchedroute: 'onUnmatchedRoute'
     },
+    defaultToken: 'dashboard',
     routes: {
         'logout': function(){}
     },
@@ -58,9 +59,14 @@ Ext.define('Tualo.Application',{
         console.error('onUnmatchedRoute',token);
     },
 
-    launch: function(profile) {
+    launch: function(profile,e) {
         Ext.getBody().removeCls('launching');
-        Ext.on('routereject',()=>{
+        Ext.on('routereject',(route,eOpts)=>{
+            try{
+                console.error('routereject',eOpts.message)
+            }catch(e){
+
+            }
             console.error('routereject',arguments)
             return true;
         })
