@@ -18,6 +18,5 @@ INSERT  IGNORE INTO `ds_column_form_label` (`table_name`, `column_name`, `langua
 ('dashboard','id','DE','ID','displayfield','Allgemein/Angaben',0,0,1,NULL,NULL,NULL,'\'\''),
 ('dashboard','position','DE','Position','displayfield','Allgemein/Erweitert',5,0,1,NULL,NULL,NULL,'\'\''),
 ('dashboard','title','DE','Titel','textfield','Allgemein/Angaben',2,0,1,NULL,NULL,NULL,'\'\'');
-INSERT  IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`, `columnsdef`, `constraint_name`, `active`, `searchable`, `autosync`, `position`, `path`, `existsreal`, `tabtitle`) VALUES ('dashboard','available_dashboards','{\"dashboard_type\":\"xtype\"}','dashboard_type_fk',0,0,0,999,'',1,'');
 INSERT  IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','dashboard',1,1,1,1,NULL),
 ('_default_','dashboard',1,NULL,NULL,NULL,NULL);
