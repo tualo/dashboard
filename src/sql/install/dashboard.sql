@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `dashboard` (
   `configuration` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`configuration`)),
   PRIMARY KEY (`id`),
   KEY `dashboard_type_fk` (`dashboard_type`),
-  CONSTRAINT `dashboard_type_fk` FOREIGN KEY (`dashboard_type`) REFERENCES `dashboard_available_types` (`xtype`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `dashboard_type_fk` FOREIGN KEY (`dashboard_type`) REFERENCES `dashboard_available_types` (`dashboard_type`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
