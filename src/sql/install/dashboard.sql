@@ -4,10 +4,10 @@ insert ignore into ds_class (class_name) values ('Dashboard') ;
 create table if not exists dashboard(
     id varchar(36) not null primary key,
     title varchar(255) not null,
-    dashboard_type varchar(255) not null,
+    dashboard_type varchar(100) not null,
     position int not null default 0,
     configuration JSON default null,
-    constraint dashboard_type_fk foreign key (dashboard_type) references dashboard_available_types(xtype) on delete cascade on update cascade
+    constraint fk_dashboard_dashboard_type foreign key (dashboard_type) references dashboard_available_types(xtype) on delete cascade on update cascade
 ) ;
 
 
