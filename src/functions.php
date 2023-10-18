@@ -9,3 +9,4 @@ require_once "Routes/Menu.php";
 require_once "Routes/ProfileMenu.php";
 require_once "Routes/Avatar.php";
 require_once "Routes/JsLoader.php";
+require_once "Commands/InstallMainSQLCommandline.php";

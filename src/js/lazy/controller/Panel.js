@@ -86,7 +86,7 @@ Ext.define('Tualo.dashboard.lazy.controller.Panel', {
 
         Ext.require(requires,()=>{
             parts.forEach((item)=>{
-                console.log('part',alias,item,alias.indexOf('part.'+item.dashboard_type));
+                console.log('part',item,alias.indexOf('part.'+item.dashboard_type));
                 //if (alias.indexOf('part.'+item.dashboard_type)>=0){
                     let conf = {};
                     try{
@@ -95,13 +95,13 @@ Ext.define('Tualo.dashboard.lazy.controller.Panel', {
                         console.error(e);
                     }
                     defaultContent.push({
-                        ...conf,
-                        ...{
-                            title: item.title,
-                            type: item.dashboard_type,
-                            columnIndex: index,
-                            height: 320
-                        }
+                        type: item.dashboard_type,
+                        addConfiguration: {
+                            ...conf,
+                            ...item
+                        },
+                        columnIndex: index%2,
+                        height: 320
                     });
                     parts[item.dashboard_type] = item.dashboard_type;
                     index++;
