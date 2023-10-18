@@ -1,4 +1,6 @@
 DELIMITER ;
+insert ignore into ds_class (class_name) values ('Dashboard') ;
+
 CREATE TABLE IF NOT EXISTS `dashboard` (
   `id` varchar(36) NOT NULL,
   `title` varchar(255) NOT NULL,
