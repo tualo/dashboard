@@ -1,16 +1,14 @@
 DELIMITER ;
 insert ignore into ds_class (class_name) values ('Dashboard') ;
 
-CREATE TABLE IF NOT EXISTS `dashboard` (
-  `id` varchar(36) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `dashboard_type` varchar(255) NOT NULL,
-  `position` int(11) NOT NULL DEFAULT 0,
-  `configuration` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`configuration`)),
-  PRIMARY KEY (`id`),
-  KEY `dashboard_type_fk` (`dashboard_type`),
-  CONSTRAINT `dashboard_type_fk` FOREIGN KEY (`dashboard_type`) REFERENCES `dashboard_available_types` (`dashboard_type`) ON DELETE CASCADE ON UPDATE CASCADE
-);
+create table if not exists dashboard(
+    id varchar(36) not null primary key,
+    title varchar(255) not null,
+    dashboard_type varchar(255) not null,
+    position int not null default 0,
+    configuration JSON default null,
+    constraint dashboard_type_fk foreign key (dashboard_type) references dashboard_available_types(xtype) on delete cascade on update cascade
+) ;
 
 
 create view if not exists view_readttable_dashboard as
