@@ -9,6 +9,8 @@ class Menu implements IRoute{
     public static function menu($db,$node){
         $menu=[];
         $menuData=$db->direct('
+
+        
             select 
                 json_object(
                         "nodeId", macc_menu.id,
