@@ -99,25 +99,15 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
         xtype: 'panel',
         itemId: 'stage',
         flex: 1,
-        layout: 'card',/*,
-        dockedItems: [{ 
-            xtype: 'dashboard_windowmenu',
-            dock: 'bottom'
-        }]*/
+        layout: 'card',
         items: [
             {
                 xtype: 'panel',
                 layout: 'card',
                 listeners: {
                     boxready: 'onDashboardReady'
-                }/*,
-                initComponent: function(){
-                    console.log('initComponent','DASHBOARD',arguments);
-                }*/
+                }
             }
-            /*
-            
-            */
         ]
     }],
     addView: function(cls,options){
@@ -128,8 +118,8 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
         stage.setActiveItem(c);
 
         Ext.getApplication().updateWindowTitle();
+        return c;
     },
     setSessionPing: function(data){
-        console.log('setSessionPing','data',data);
     }
 })

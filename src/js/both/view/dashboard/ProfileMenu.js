@@ -21,10 +21,7 @@ Ext.define('Tualo.dashboard.view.dashboard.ProfileMenu', {
             bkr: 'BKR 001'
         },
         formulas: {
-            
             iconVisible: function(get){
-                
-                console.log('>iconVisible',get('width'),get('width') < 230,'<iconVisible');
                 return get('width') < 230;
             },
             infoHtml: function(get){

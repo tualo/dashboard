@@ -1,8 +1,6 @@
 Ext.Loader.setPath('Tualo.dashboard', './jsdashboard');
 Ext.Loader.setPath('Tualo.dashboard.lazy', './jsdashboard');
 
-
-
 Ext.define('Tualo.Application',{
     extend: 'Ext.app.Application',
     name: 'Tualo',
@@ -27,7 +25,6 @@ Ext.define('Tualo.Application',{
                 }
         }(orig);
     },
-    //controllers: ['Tualo.dashboard.controller.Application'],
     paths: {
         'Tualo': '.'
     },
@@ -44,21 +41,10 @@ Ext.define('Tualo.Application',{
     routes: {
         'logout': function(){}
     },
-
     getAPIPath: ()=>{ return './' },
-
-    /*
-    profiles: [
-        'Phone',
-        'Tablet'
-    ],
-    */
-    // defaultToken: 'dashboard_wait',
-
     onUnmatchedRoute: function(token) {
         console.error('onUnmatchedRoute',token);
     },
-
     launch: function(profile,e) {
         Ext.getBody().removeCls('launching');
         Ext.on('routereject',(route,eOpts)=>{
@@ -90,17 +76,15 @@ Ext.define('Tualo.Application',{
         this.setRoutes(this.getRoutes());
     },
     addView: function(viewcls,options){
-        this.getMainView().getComponent('dashboard_dashboard').addView(viewcls,options);
+        return this.getMainView().getComponent('dashboard_dashboard').addView(viewcls,options);
     },
     getCurrentView: function(){
         return Ext.getApplication().getMainView().down('dashboard_dashboard').getComponent('stage');
     },
     updateWindowTitle: function(title){
-
         try{
-            let title = this.sessionPing.client+': ',
+            let title = (this.sessionPing)?(this.sessionPing.client+': '):'',
                 currentItem = Ext.getApplication().getMainView().down('dashboard_dashboard').getComponent('stage').getLayout().getActiveItem();
-
             if ((typeof currentItem.getTitle=='function') && (currentItem.getTitle())){
                 title += currentItem.getTitle();
             }else if ((typeof currentItem.getWindowTitle=='function') && (currentItem.getWindowTitle())){
@@ -112,12 +96,9 @@ Ext.define('Tualo.Application',{
         }catch(e){
             console.error(e);
         }
-        
     },
-
     pingTest: async function(){
         let res = await ( await fetch(Ext.getApplication().getAPIPath()+'dashboard/ping') ).json();
-        console.log(res);
         if (res.success==false){
             alert('not logged in');
         }else{
@@ -131,23 +112,17 @@ Ext.define('Tualo.Application',{
             json: function(o){
                 me.sessionPing = o;
                 if (o.success==false){
-                    //Ext.getApplication().redirectTo('dashboard_login');
                     me.getMainView().setActiveItem(1);
                 }else{
                     me.updateWindowTitle();
                     me.getMainView().setActiveItem(2);
                     setTimeout(me.pingTest.bind(me),10000);
-                    /*
-                    Ext.getApplication().redirectTo('dashboard_dashboard');
-                    */
                     me.getMainView().getComponent('dashboard_dashboard').setSessionPing(o);
                     
                 }
             }
         });
     },
-    
-
     onAppUpdate: function () {
         /*
         Ext.Msg.confirm('Anwendung', 'Für diese Anwendung gibt es Änderungen, sollen diese geladen werden?',

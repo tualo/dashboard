@@ -4,9 +4,7 @@ Ext.define('Tualo.dashboard.view.dashboard.SearchMenuController', {
     onBoxReady: function(x){
         // this.onToggleMicro(null,true);
     },
-
     onResize: function(fld,width){
-        console.log('onResize',arguments);
         fld.getViewModel().set('width',width);
     },
 

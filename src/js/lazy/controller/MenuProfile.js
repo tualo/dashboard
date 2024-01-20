@@ -47,10 +47,8 @@ Ext.define('Tualo.dashboard.controller.MenuProfile', {
         console.log('onMenuItemClick',record)
     },
     onResize: function(fld,width){
-        console.log(fld,width);
         let treelist = this.lookupReference('treelist'),
         pressed=true;
-        // fld.getViewModel().set('width',width);
         if (width < 100){
             pressed=true;
         }else{

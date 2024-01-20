@@ -11,7 +11,6 @@ Ext.define('Tualo.dashboard.view.dashboard.WindowMenu', {
     },
     onBoxReady: function(){
         var me = this;
-        console.log('onBoxReady',arguments);
         me.callParent(arguments);
         try{
             if(me.up().up().getItemId()=='stage'){
