@@ -4,8 +4,6 @@ Ext.define('Tualo.dashboard.view.dashboard.Controller', {
     alias: 'controller.dashboard_dashboard',
 
     onDashboardReady: function(panel){
-        console.log('onDashboardReady',arguments)
-       //  panel.add(Ext.create('Tualo.dashboard.lazy.Panel',{ }));
     },
     onBoxReady: function(x){
         this.onToggleMicro(null,true);

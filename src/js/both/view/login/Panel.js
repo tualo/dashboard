@@ -20,7 +20,7 @@ Ext.define('Tualo.dashboard.view.login.Panel', {
     },
 
     items:[{
-        xtype: 'panel',
+        xtype: 'form',
         itemId: 'loginform',
         title: 'Anmeldung',
         border: true,
