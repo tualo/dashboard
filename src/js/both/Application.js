@@ -24,6 +24,32 @@ Ext.define('Tualo.Application',{
                         return orig.apply(this, arguments);
                 }
         }(orig);
+
+
+        let orig2 = Ext.widget;
+        Ext.widget = function(orig){
+            return function() {
+                console.debug('Ext.widget',arguments);
+                return orig.apply(this, arguments);
+            }
+        }(orig2);
+
+
+        orig2 = Ext.view.Table.updateColumns;
+        Ext.view.Table.updateColumns = function(orig){
+            return function() {
+                console.debug('Ext.view.Table.updateColumns',arguments);
+                return orig.apply(this, arguments);
+            }
+        }(orig2);
+
+        Ext.define('Tualo.Ext.view.Table', {
+            override : 'Ext.view.Table',
+            updateColumns: function(){
+                console.debug('Ext.view.Table.updateColumns',arguments);
+                return Ext.view.Table.prototype.updateColumns.call.bind(this)(arguments);
+            }
+        });
     },
     paths: {
         'Tualo': '.'
