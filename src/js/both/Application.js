@@ -1,7 +1,62 @@
 Ext.Loader.setPath('Tualo.dashboard', './jsdashboard');
 Ext.Loader.setPath('Tualo.dashboard.lazy', './jsdashboard');
 
+let ecreate = Ext.create;
+Ext.define('Tualo.Application',{
+    override: 'Ext',
 
+    create: function() {
+        var name = arguments[0],
+            nameType = typeof name,
+            args = [...arguments].slice( 1),
+            cls;
+
+        if (nameType === 'function') {
+            cls = name;
+        }
+        else {
+            if (nameType !== 'string' && args.length === 0) {
+                args = [name];
+
+                if (!(name = name.xclass)) {
+                    name = args[0].xtype;
+
+                    if (name) {
+                        name = 'widget.' + name;
+                    }
+                }
+            }
+
+            if (typeof name !== 'string' || name.length < 1) {
+                throw new Error("[Ext.create] Invalid class name or alias '" + name +
+                                "' specified, must be a non-empty string");
+            }
+
+            name = Ext.ClassManager.resolveName(name);
+            cls =  Ext.ClassManager.get(name);
+        }
+
+        // Still not existing at this point, try to load it via synchronous mode as the last
+        // resort
+        if (!cls) {
+            
+
+            Ext.syncRequire(name);
+
+            cls =  Ext.ClassManager.get(name);
+        }
+
+        if (!cls) {
+            throw new Error("[Ext.create] Unrecognized class name / alias: " + name);
+        }
+
+        if (typeof cls !== 'function') {
+            throw new Error("[Ext.create] Singleton '" + name + "' cannot be instantiated.");
+        }
+
+        return  Ext.ClassManager.getInstantiator(args.length)(cls, args);
+    }
+});
 
 Ext.define('Tualo.Application',{
     extend: 'Ext.app.Application',
