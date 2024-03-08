@@ -196,6 +196,14 @@ Ext.define('Tualo.Application',{
                 me.sessionPing = o;
                 if (o.success==false){
                     me.getMainView().setActiveItem(1);
+                    if (o.msg!='')
+                    Ext.toast({
+                        html: o.msg,
+                        title: 'Fehler',
+                        width: 200,
+                        align: 't',
+                        iconCls: 'fa fa-warning'
+                    });
                 }else{
                     me.updateWindowTitle();
                     me.getMainView().setActiveItem(2);
