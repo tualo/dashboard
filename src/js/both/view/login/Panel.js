@@ -45,13 +45,13 @@ Ext.define('Tualo.dashboard.view.login.Panel', {
                 xtype: 'textfield',
                 name: 'username',
                 anchor: '100%',
-                label: 'Login',
+                label: 'Login*',
                 value: '',
-                //enableKeyEvents: true,
+                enableKeyEvents: true,
                 listeners: {
                     keypress: function(me, e, o) {
                         if (e.keyCode === 13) {
-                            me.up('panel').items.getAt(2).focus();
+                            me.up('panel').items.getAt(3).focus();
                         }
                     }
                 }
@@ -62,10 +62,12 @@ Ext.define('Tualo.dashboard.view.login.Panel', {
                 label: 'Passort',
                 inputType: 'password',
                 value: '',
+                enableKeyEvents: true,
                 listeners: {
                     keypress: function(me, e, o) {
                         if (e.keyCode === 13) {
-                            me.up('panel').up('panel').up().getController().onLoginClick();
+
+                            me.up('dashboard_login').getController().onLoginClick();
                         }
                     }
                 }
