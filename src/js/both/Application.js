@@ -2,8 +2,9 @@ Ext.Loader.setPath('Tualo.dashboard', './jsdashboard');
 Ext.Loader.setPath('Tualo.dashboard.lazy', './jsdashboard');
 
 
-
+/*
 let ecreate = Ext.create;
+
 Ext.define('Tualo.Application',{
     override: 'Ext',
 
@@ -58,7 +59,7 @@ Ext.define('Tualo.Application',{
 
         return  Ext.ClassManager.getInstantiator(args.length)(cls, args);
     }
-});
+});*/
 
 Ext.define('Tualo.Application',{
     extend: 'Ext.app.Application',
@@ -78,13 +79,13 @@ Ext.define('Tualo.Application',{
         let orig = Ext.ClassManager.instantiateByAlias
         Ext.ClassManager.instantiateByAlias = function(orig){
                 return function() {
-                        let alias = arguments[0];
-                        console.debug('load alias',alias);
-                        return orig.apply(this, arguments);
+                    let alias = arguments[0];
+                    console.debug('load alias',alias,arguments);
+                    return orig.apply(this, arguments);
                 }
         }(orig);
 
-
+        /*
         let orig2 = Ext.widget;
         Ext.widget = function(orig){
             return function() {
@@ -109,6 +110,7 @@ Ext.define('Tualo.Application',{
                 return Ext.view.Table.prototype.updateColumns.call.bind(this)(arguments);
             }
         });
+        */
     },
     paths: {
         'Tualo': '.'
@@ -130,7 +132,11 @@ Ext.define('Tualo.Application',{
     onUnmatchedRoute: function(token) {
         console.error('onUnmatchedRoute',token);
     },
+    selfCheck: async function(dsName){
+        Ext.create('Tualo.dashboard.lazy.SelfCheck').check(dsName);
+    },
     launch: function(profile,e) {
+        this.enableDebugXType();
         Ext.getBody().removeCls('launching');
         Ext.on('routereject',(route,eOpts)=>{
             try{
@@ -150,8 +156,12 @@ Ext.define('Tualo.Application',{
         let routes = {};
         for(let cls in Ext.ClassManager.classes){
             if (cls.indexOf('Tualo.routes.')==0){
+                try{
                 let route = Ext.create(cls);
                 routes[route.url+""]=route.handler;
+                }catch(e){
+                    console.error(e);
+                }
             }
         }
         return routes;
@@ -169,7 +179,7 @@ Ext.define('Tualo.Application',{
     updateWindowTitle: function(title){
         try{
             let title = (this.sessionPing)?(this.sessionPing.client+': '):'',
-                currentItem = Ext.getApplication().getMainView().down('dashboard_dashboard').getComponent('stage').getLayout().getActiveItem();
+                currentItem = (Ext.isModern) ? Ext.getApplication().getMainView().down('dashboard_dashboard').getComponent('stage').getActiveItem() : Ext.getApplication().getMainView().down('dashboard_dashboard').getComponent('stage').getLayout().getActiveItem();
             if ((typeof currentItem.getTitle=='function') && (currentItem.getTitle())){
                 title += currentItem.getTitle();
             }else if ((typeof currentItem.getWindowTitle=='function') && (currentItem.getWindowTitle())){

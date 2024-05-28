@@ -1,5 +1,5 @@
 Ext.define('Tualo.dashboard.view.dashboard.WindowMenu', {
-    extend: 'Ext.toolbar.Toolbar',
+    extend: 'Ext.Toolbar',
     alias: "widget.dashboard_windowmenu",
 
     xtype: 'toolbar',

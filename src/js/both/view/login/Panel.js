@@ -1,14 +1,14 @@
 Ext.define('Tualo.dashboard.view.login.Panel', {
     extend: 'Ext.form.Panel',
 
-    
     requires: [
         'Tualo.dashboard.view.login.Controller'
     ],
 
     controller: 'dashboard_login',
-    xtype: 'dashboard_login',
     
+    alias: 'widget.dashboard_login',
+
     bodyStyle: {
         backgroundColor: 'rgb(240,240,255)'
     },

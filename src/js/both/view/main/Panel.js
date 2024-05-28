@@ -29,6 +29,8 @@ Ext.define('Tualo.dashboard.view.main.Panel',{
         let panel = Ext.create(viewcls,{ });
         
         this.add(panel);
+        console.log('addView',panel);
+        
         this.setActiveItem(panel);
     }
 })
