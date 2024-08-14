@@ -23,6 +23,21 @@ Ext.define('Tualo.dashboard.view.dashboard.Model', {
                 url: './dashboard/menu'
             },
             lazyFill: false
+        },
+        breadcrumbs: {
+            fields: [
+                {name: 'itemId',        type: 'string'},
+                {name: 'text',          type: 'string'},
+                {name: 'link',          type: 'string'},
+                {name: 'iconCls',       type: 'string'}
+            ],
+            proxy: {
+                type: 'memory',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data'
+                }
+            }
         }
     }
 });

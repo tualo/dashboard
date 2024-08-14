@@ -173,6 +173,10 @@ Ext.define('Tualo.Application',{
     addView: function(viewcls,options){
         return this.getMainView().getComponent('dashboard_dashboard').addView(viewcls,options);
     },
+    showStage: function(itemId){
+        console.log('showStage',itemId);
+        this.getMainView().getComponent('dashboard_dashboard').showStage(itemId);
+    },
     getCurrentView: function(){
         return Ext.getApplication().getMainView().down('dashboard_dashboard').getComponent('stage');
     },

@@ -99,6 +99,28 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
         xtype: 'panel',
         itemId: 'stage',
         flex: 1,
+        bbar: [{
+            xtype: 'dataview',
+            showIcons: true,
+            tpl: [
+                '<tpl for=".">',
+                    '<div style=" display: inline; margin-right: 12px; max-width: 50px; width: 50px;overflow: hidden;text-overflow: ellipsis;" class="breadcrumb-wrap">',
+                        '<span>{text}</span>',
+                    '</div>',
+                '</tpl>'
+            ],
+            listeners: {
+                itemclick ( me, record, item, index, e, eOpts ){
+                    console.log('itemclick',me, record, item, index, e, eOpts);
+                    me.up('dashboard_dashboard').showStage(record.get('itemId'))
+                }
+            },
+            itemSelector: 'div.breadcrumb-wrap',
+            emptyText: '',
+            bind: {
+                store: '{breadcrumbs}'
+            }
+        }],
         layout: 'card',
         items: [
             {
@@ -110,14 +132,57 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
             }
         ]
     }],
+    showStage: function(itemId){
+        let stage = this.getComponent('stage');
+        stage.setActiveItem(itemId);
+    },
     addView: function(cls,options){
 
         let stage = this.getComponent('stage'),
             c = Ext.create(cls,options||{});
         stage.add(c);
         stage.setActiveItem(c);
+        
+        let breadcrumbStore = this.getViewModel().getStore('breadcrumbs');
+        
+        /*
+        console.log(breadcrumbStore);
+        console.log(breadcrumbStore.isLoaded);
+        console.log(breadcrumbStore.load());
+        */
 
+        console.log('length',breadcrumbStore.getRange().length);
+       
+        
+        let record = breadcrumbStore.add({
+            itemId: c.itemId,
+            text: '...', 
+            iconCls: c.iconCls
+        });
+
+        let myFn = function(v) {
+                this.set('text',v);
+                console.log('c.getViewModel().bind',v);
+        }
+
+        c.getViewModel().bind('{currentTitle}', myFn ,record[0]);
+
+        /*
+        c.on('destroy',function(){
+            stage.remove(c);
+            stage.setActiveItem(0);
+            breadcrumbStore.removeAt(breadcrumbStore.getCount()-1);
+        });
+        */
+        /*
+        c.on('titlechange',function(){
+            // let rec = breadcrumbStore.getAt(breadcrumbStore.getCount()-1);
+            record.set('text',c.title);
+        });
+        */
+        //('title',c.title);
         Ext.getApplication().updateWindowTitle();
+        console.log('addView done',breadcrumbStore);
         return c;
     },
     setSessionPing: function(data){
