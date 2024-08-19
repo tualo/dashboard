@@ -15,7 +15,8 @@
         },
         "files": ["src/functions.php"]
     },
-    "minimum-stability": "dev",
+    
+    
     "require": {
         "yohang88/letter-avatar": "2.3.0",
         "tualo/bsc": "^1.0.0",
