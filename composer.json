@@ -19,7 +19,7 @@
     
     "require": {
         "yohang88/letter-avatar": "2.3.0",
-        "tualo/bsc": "^1.0.0",
-        "tualo/ds": "^1.0.0"
+        "tualo/bsc": "^1.0.0 || @dev",
+        "tualo/ds": "^1.0.0 || @dev"
     }
 }
