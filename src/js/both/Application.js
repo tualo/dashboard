@@ -80,7 +80,9 @@ Ext.define('Tualo.Application',{
         Ext.ClassManager.instantiateByAlias = function(orig){
                 return function() {
                     let alias = arguments[0];
-                    console.debug('load alias',alias,arguments);
+                    if (false){
+                        console.debug('load alias',alias,arguments);
+                    }
                     return orig.apply(this, arguments);
                 }
         }(orig);
@@ -136,7 +138,7 @@ Ext.define('Tualo.Application',{
         Ext.create('Tualo.dashboard.lazy.SelfCheck').check(dsName);
     },
     launch: function(profile,e) {
-        this.enableDebugXType();
+        // this.enableDebugXType();
         Ext.getBody().removeCls('launching');
         Ext.on('routereject',(route,eOpts)=>{
             try{
