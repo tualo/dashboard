@@ -114,6 +114,7 @@ Ext.define('Tualo.dashboard.lazy.controller.Panel', {
                         0.5
                     ],
                     defaultContent: defaultContent,
+                    stateful: true,
                     parts: parts
                 });
                 this.getView().add(db);
