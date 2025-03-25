@@ -8,7 +8,7 @@ Ext.define('Tualo.dashboard.view.dashboard.ProfileMenu', {
         resize: 'onResize',
         "boxready": 'onBoxReady'
     },
-    
+
     viewModel: {
         data: {
             width: 230,
@@ -21,46 +21,47 @@ Ext.define('Tualo.dashboard.view.dashboard.ProfileMenu', {
             bkr: 'BKR 001'
         },
         formulas: {
-            iconVisible: function(get){
+            iconVisible: function (get) {
                 return get('width') < 230;
             },
-            infoHtml: function(get){
+            infoHtml: function (get) {
+                console.log('get', '->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><');
                 return ['<div class="application-profile-header-info">',
-                            '<div class="application-profile-header-avatar">',
-                                '<img src="'+get('avatar')+'">',
-                            '</div>',
-                            '<div class="application-profile-header-avatar">',
-                                '<img src="'+get('clientavatar')+'">',
-                            '</div>',
-                            '<div class="application-profile-header-avatar">',
-                                '<img src="'+get('gstavatar')+'">',
-                            '</div>',
-                            '<div class="application-profile-header-avatar">',
-                                '<img src="'+get('bkravatar')+'">',
-                            '</div>',
-                            //'<div class="application-profile-header-gst" style="margin-left: -2px;">GST: '+get('gst')+'</div>',
-                            //'<div class="application-profile-header-bkr" style="margin-left: -2px;">BKR: '+get('bkr')+'</div>',
-                        '</div>'].join('');
+                    '<div class="application-profile-header-avatar">',
+                    '<img src="' + get('avatar') + '">',
+                    '</div>',
+                    '<div class="application-profile-header-avatar">',
+                    '<img src="' + get('clientavatar') + '">',
+                    '</div>',
+                    '<div class="application-profile-header-avatar">',
+                    '<img src="' + get('gstavatar') + '">',
+                    '</div>',
+                    '<div class="application-profile-header-avatar">',
+                    '<img src="' + get('bkravatar') + '">',
+                    '</div>',
+                    //'<div class="application-profile-header-gst" style="margin-left: -2px;">GST: '+get('gst')+'</div>',
+                    //'<div class="application-profile-header-bkr" style="margin-left: -2px;">BKR: '+get('bkr')+'</div>',
+                    '</div>'].join('');
             },
-            html: function(get){
+            html: function (get) {
                 return ['<div class="application-profile-header">',
-                        '<div class="application-profile-header-avatar">',
-                            '<img src="'+get('avatar')+'">',
-                        '</div>',
-                            
-                                '<div class="application-profile-header-name">'+get('fullname')+'</div>',
-                                //'<div class="application-profile-header-login">'+get('login')+'</div>',
-                                '<div class="application-profile-header-client">'+get('client')+'</div>',
-                                '<div class="application-profile-header-gst">GST: '+get('gst')+'</div>',
-                                '<div class="application-profile-header-bkr">BKR: '+get('bkr')+'</div>',
-                            
-                        '</div>'
-                    ].join('');
+                    '<div class="application-profile-header-avatar">',
+                    '<img src="' + get('avatar') + '">',
+                    '</div>',
+
+                    '<div class="application-profile-header-name">' + get('fullname') + '</div>',
+                    //'<div class="application-profile-header-login">'+get('login')+'</div>',
+                    '<div class="application-profile-header-client">' + get('client') + '</div>',
+                    '<div class="application-profile-header-gst">GST: ' + get('gst') + '</div>',
+                    '<div class="application-profile-header-bkr">BKR: ' + get('bkr') + '</div>',
+
+                    '</div>'
+                ].join('');
             }
         }
     },
 
-    
+
     listeners: {
         resize: 'onResize',
         "boxready": 'onBoxReady'
@@ -91,5 +92,5 @@ Ext.define('Tualo.dashboard.view.dashboard.ProfileMenu', {
         }
         */
     ]
-    
+
 });

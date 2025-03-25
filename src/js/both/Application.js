@@ -1,67 +1,18 @@
 Ext.Loader.setPath('Tualo.dashboard', './jsdashboard');
 Ext.Loader.setPath('Tualo.dashboard.lazy', './jsdashboard');
 
-
-/*
-let ecreate = Ext.create;
-
-Ext.define('Tualo.Application',{
-    override: 'Ext',
-
-    create: function() {
-        var name = arguments[0],
-            nameType = typeof name,
-            args = [...arguments].slice( 1),
-            cls;
-
-        if (nameType === 'function') {
-            cls = name;
+let orig = Ext.ClassManager.instantiateByAlias
+Ext.ClassManager.instantiateByAlias = function (orig) {
+    return function () {
+        let alias = arguments[0];
+        if (true) {
+            console.debug('load alias', alias, arguments);
         }
-        else {
-            if (nameType !== 'string' && args.length === 0) {
-                args = [name];
-
-                if (!(name = name.xclass)) {
-                    name = args[0].xtype;
-
-                    if (name) {
-                        name = 'widget.' + name;
-                    }
-                }
-            }
-
-            if (typeof name !== 'string' || name.length < 1) {
-                throw new Error("[Ext.create] Invalid class name or alias '" + name +
-                                "' specified, must be a non-empty string");
-            }
-
-            name = Ext.ClassManager.resolveName(name);
-            cls =  Ext.ClassManager.get(name);
-        }
-
-        // Still not existing at this point, try to load it via synchronous mode as the last
-        // resort
-        if (!cls) {
-            
-
-            Ext.syncRequire(name);
-
-            cls =  Ext.ClassManager.get(name);
-        }
-
-        if (!cls) {
-            throw new Error("[Ext.create] Unrecognized class name / alias: " + name);
-        }
-
-        if (typeof cls !== 'function') {
-            throw new Error("[Ext.create] Singleton '" + name + "' cannot be instantiated.");
-        }
-
-        return  Ext.ClassManager.getInstantiator(args.length)(cls, args);
+        return orig.apply(this, arguments);
     }
-});*/
+}(orig);
 
-Ext.define('Tualo.Application',{
+Ext.define('Tualo.Application', {
     extend: 'Ext.app.Application',
     name: 'Tualo',
     quickTips: false,
@@ -71,20 +22,20 @@ Ext.define('Tualo.Application',{
         }
     },
     debug: false,
-    getDebug: function(){
+    getDebug: function () {
         return this.debug;
-        
+
     },
-    enableDebugXType: function(){
+    enableDebugXType: function () {
         let orig = Ext.ClassManager.instantiateByAlias
-        Ext.ClassManager.instantiateByAlias = function(orig){
-                return function() {
-                    let alias = arguments[0];
-                    if (false){
-                        console.debug('load alias',alias,arguments);
-                    }
-                    return orig.apply(this, arguments);
+        Ext.ClassManager.instantiateByAlias = function (orig) {
+            return function () {
+                let alias = arguments[0];
+                if (true) {
+                    console.debug('load alias', alias, arguments);
                 }
+                return orig.apply(this, arguments);
+            }
         }(orig);
 
         /*
@@ -128,40 +79,69 @@ Ext.define('Tualo.Application',{
     },
     defaultToken: 'dashboard',
     routes: {
-        'logout': function(){}
+        'logout': function () { }
     },
-    getAPIPath: ()=>{ return './' },
-    onUnmatchedRoute: function(token) {
-        console.error('onUnmatchedRoute',token);
+    getAPIPath: () => { return './' },
+    onUnmatchedRoute: function (token) {
+        console.error('onUnmatchedRoute', token);
     },
-    selfCheck: async function(dsName){
+    selfCheck: async function (dsName) {
         Ext.create('Tualo.dashboard.lazy.SelfCheck').check(dsName);
     },
-    launch: function(profile,e) {
+    launch: function (profile, e) {
         // this.enableDebugXType();
         Ext.getBody().removeCls('launching');
-        Ext.on('routereject',(route,eOpts)=>{
-            try{
-                console.error('routereject',eOpts.message)
-            }catch(e){
+        Ext.on('routereject', (route, eOpts) => {
+            try {
+                console.error('routereject', eOpts.message)
+            } catch (e) {
 
             }
-            console.error('routereject',arguments)
+            console.error('routereject', arguments)
             return true;
         })
         this.callParent([profile]);
         this.registerRoutes();
         this.getMainView().setActiveItem(this.getMainView().getComponent('loading'));
         this.ping();
+
+
+        /*
+        this.menu = Ext.create('Tualo.dashboard.view.Menu', {
+
+        });
+
+        Ext.define('Fiddle.view.Panel', {
+            extend: 'Ext.Button',
+            floating: true,
+            renderTo: document.body,
+            iconCls: 'x-fa fa-home',
+            listeners: {
+                scope: this,
+                click: () => {
+                    Ext.getApplication().menu.animadedShow();
+
+                    Ext.getApplication().menu.mon(Ext.getBody(), 'click', function (el, e) {
+                        Ext.getApplication().menu.animadedHide();
+                    }, Ext.getApplication().menu, { delegate: '.x-mask' });
+
+                }
+            }
+        });
+        el = Ext.create('Fiddle.view.Panel');
+        el.show();
+        el.setXY(10, 10, 99999)
+        */
+
     },
-    getRoutes: function(){
+    getRoutes: function () {
         let routes = {};
-        for(let cls in Ext.ClassManager.classes){
-            if (cls.indexOf('Tualo.routes.')==0){
-                try{
-                let route = Ext.create(cls);
-                routes[route.url+""]=route.handler;
-                }catch(e){
+        for (let cls in Ext.ClassManager.classes) {
+            if (cls.indexOf('Tualo.routes.') == 0) {
+                try {
+                    let route = Ext.create(cls);
+                    routes[route.url + ""] = route.handler;
+                } catch (e) {
                     console.error(e);
                 }
             }
@@ -169,65 +149,66 @@ Ext.define('Tualo.Application',{
         return routes;
 
     },
-    registerRoutes: function(){
+    registerRoutes: function () {
         this.setRoutes(this.getRoutes());
     },
-    addView: function(viewcls,options){
-        return this.getMainView().getComponent('dashboard_dashboard').addView(viewcls,options);
+    addView: function (viewcls, options) {
+        console.log('addView', viewcls, options);
+        return this.getMainView().getComponent('dashboard_dashboard').addView(viewcls, options);
     },
-    showStage: function(itemId){
-        console.log('showStage',itemId);
+    showStage: function (itemId) {
+        console.log('showStage', itemId);
         this.getMainView().getComponent('dashboard_dashboard').showStage(itemId);
     },
-    getCurrentView: function(){
+    getCurrentView: function () {
         return Ext.getApplication().getMainView().down('dashboard_dashboard').getComponent('stage');
     },
-    updateWindowTitle: function(title){
-        try{
-            let title = (this.sessionPing)?(this.sessionPing.client+': '):'',
+    updateWindowTitle: function (title) {
+        try {
+            let title = (this.sessionPing) ? (this.sessionPing.client + ': ') : '',
                 currentItem = (Ext.isModern) ? Ext.getApplication().getMainView().down('dashboard_dashboard').getComponent('stage').getActiveItem() : Ext.getApplication().getMainView().down('dashboard_dashboard').getComponent('stage').getLayout().getActiveItem();
-            if ((typeof currentItem.getTitle=='function') && (currentItem.getTitle())){
+            if ((typeof currentItem.getTitle == 'function') && (currentItem.getTitle())) {
                 title += currentItem.getTitle();
-            }else if ((typeof currentItem.getWindowTitle=='function') && (currentItem.getWindowTitle())){
+            } else if ((typeof currentItem.getWindowTitle == 'function') && (currentItem.getWindowTitle())) {
                 title += currentItem.getWindowTitle();
-            }else{
+            } else {
                 title += 'Tualo';
             }
             window.document.title = title;
-        }catch(e){
+        } catch (e) {
             console.error(e);
         }
     },
-    pingTest: async function(){
-        let res = await ( await fetch(Ext.getApplication().getAPIPath()+'dashboard/ping') ).json();
-        if (res.success==false){
+    pingTest: async function () {
+        let res = await (await fetch(Ext.getApplication().getAPIPath() + 'dashboard/ping')).json();
+        if (res.success == false) {
             alert('not logged in');
-        }else{
-            setTimeout(this.pingTest.bind(this),60000);
+        } else {
+            setTimeout(this.pingTest.bind(this), 60000);
         }
     },
-    ping: function(){
-        let me=this;
+    ping: function () {
+        let me = this;
         Tualo.Ajax.request({
-            url: Ext.getApplication().getAPIPath()+'dashboard/ping',
-            json: function(o){
+            url: Ext.getApplication().getAPIPath() + 'dashboard/ping',
+            json: function (o) {
                 me.sessionPing = o;
-                if (o.success==false){
+                if (o.success == false) {
                     me.getMainView().setActiveItem(1);
-                    if (o.msg!='')
-                    Ext.toast({
-                        html: o.msg,
-                        title: 'Fehler',
-                        width: 200,
-                        align: 't',
-                        iconCls: 'fa fa-warning'
-                    });
-                }else{
+                    if (o.msg != '')
+                        Ext.toast({
+                            html: o.msg,
+                            title: 'Fehler',
+                            width: 200,
+                            align: 't',
+                            iconCls: 'fa fa-warning'
+                        });
+                } else {
                     me.updateWindowTitle();
                     me.getMainView().setActiveItem(2);
-                    setTimeout(me.pingTest.bind(me),10000);
+                    setTimeout(me.pingTest.bind(me), 10000);
                     me.getMainView().getComponent('dashboard_dashboard').setSessionPing(o);
-                    
+
                 }
             }
         });
