@@ -63,6 +63,11 @@ class DashboardRoute implements IRoute
                         $avatar = new LetterAvatar($_SESSION['tualoapplication']['client'], 'square', 64);
                         TualoApplication::result('clientavatar',  $avatar->__toString());
 
+                        try {
+                            TualoApplication::result('user', $db->singleRow('select * from view_session_users where login = getSessionUser()', []));
+                        } catch (\Exception $e) {
+                            // TualoApplication::result('user_error', $e->getMessage());
+                        }
 
 
 
