@@ -19,8 +19,8 @@
   },
   "require": {
     "yohang88/letter-avatar": "2.3.0",
-    "tualo/bsc": "^1.0.1",
+    "tualo/bsc": "^1.0.3",
     "tualo/ds": "^1.0.1"
   },
-  "version": "1.0.1"
+  "version": "1.0.2"
 }
