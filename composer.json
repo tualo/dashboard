@@ -1,25 +1,26 @@
 {
-    "name": "tualo/dashboard",
-    "description": "Dashboard for tualo office",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Thomas Hoffmann",
-            "email": "thomas.hoffmann@tualo.de"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Tualo\\Office\\Dashboard\\": "src/"
-        },
-        "files": ["src/functions.php"]
-    },
-    
-    
-    "require": {
-        "yohang88/letter-avatar": "2.3.0",
-        "tualo/bsc": "^1.0.0 || @dev",
-        "tualo/ds": "^1.0.0 || @dev"
+  "name": "tualo/dashboard",
+  "description": "Dashboard for tualo office",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Thomas Hoffmann",
+      "email": "thomas.hoffmann@tualo.de"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Tualo\\Office\\Dashboard\\": "src/"
+    },
+    "files": [
+      "src/functions.php"
+    ]
+  },
+  "require": {
+    "yohang88/letter-avatar": "2.3.0",
+    "tualo/bsc": "^1.0.1",
+    "tualo/ds": "^1.0.1"
+  },
+  "version": "1.0.1"
 }
