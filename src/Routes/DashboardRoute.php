@@ -72,7 +72,7 @@ class DashboardRoute implements IRoute
                         }
 
 
-
+                        http_response_code(200);
                         TualoApplication::result('success', true);
                     }
                 }

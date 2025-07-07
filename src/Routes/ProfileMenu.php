@@ -1,14 +1,19 @@
 <?php
+
 namespace Tualo\Office\Dashboard\Routes;
+
 use Tualo\Office\Basic\TualoApplication;
 use Tualo\Office\Basic\Route;
 use Tualo\Office\Basic\IRoute;
 
 
-class ProfileMenu implements IRoute{
-    public static function menu($db,$node){
-        $menu=[];
-        $menuData=$db->direct('
+class ProfileMenu implements IRoute
+{
+    public static function menu($db, $node)
+    {
+        $menu = [];
+        $menuData = $db->direct(
+            '
 
             select * from (
 
@@ -88,36 +93,38 @@ class ProfileMenu implements IRoute{
 
             having path2={node}
             order by priority
-        ',['node'=>$node]+$_SESSION['tualoapplication']
+        ',
+            ['node' => $node] + $_SESSION['tualoapplication']
         );
-        
-        foreach($menuData as $md){
-            $m=is_string($md['menuobject'])?json_decode($md['menuobject'],true):$md['menuobject'];
+
+        foreach ($menuData as $md) {
+            $m = is_string($md['menuobject']) ? json_decode($md['menuobject'], true) : $md['menuobject'];
             /*$submenu = self::menu($db,$m['nodeId']);
             if ($submenu){
                 $m['children']=$submenu;
             }else{
                 $m['leaf']=true;
             }*/
-            $menu[]=$m;
-        } 
+            $menu[] = $m;
+        }
         return $menu;
     }
-    public static function register(){
+    public static function register()
+    {
 
-        Route::add('/dashboard/profilemenu',function(){
+        Route::add('/dashboard/profilemenu', function () {
 
             $db = TualoApplication::get('session')->getDB();
             try {
-                $menu=self::menu($db,'');
+                http_response_code(200);
+                $menu = self::menu($db, '');
                 echo json_encode($menu);
                 exit();
-                
-            }catch(\Exception $e){
+            } catch (\Exception $e) {
                 echo $e->getMessage();
                 exit();
                 TualoApplication::result('msg', $e->getMessage());
             }
-        },array('get','post'),false);
+        }, array('get', 'post'), false);
     }
 }

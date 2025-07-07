@@ -60,6 +60,7 @@ class Menu implements IRoute
 
             $db = TualoApplication::get('session')->db;
             try {
+                http_response_code(200);
                 $menu = self::menu($db, '');
                 echo json_encode($menu);
                 exit();
