@@ -88,7 +88,11 @@ class DashboardRoute implements IRoute
                 '_dc' => [
                     'required' => false,
                     'type' => 'int',
-                ]
+                ],
+                'terminalid' => [
+                    'required' => false,
+                    'type' => 'string',
+                ],
             ]
         ]);
 
