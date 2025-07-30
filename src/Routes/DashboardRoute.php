@@ -174,7 +174,7 @@ class DashboardRoute implements IRoute
                     $row = $session->db->singleRow($sql, $hash);
 
                     if (false !== $row) {
-                        session_start();
+                        @session_start();
                         TualoApplication::result('success', true);
                         $_SESSION['db']['db_host'] = $row['db_host'];
                         $_SESSION['db']['db_user'] = $row['db_user'];
