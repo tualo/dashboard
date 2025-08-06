@@ -164,8 +164,8 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
             this.set('text', v);
             console.log('c.getViewModel().bind', v);
         }
-
-        c.getViewModel().bind('{currentTitle}', myFn, record[0]);
+        if (c.getViewModel())
+            c.getViewModel().bind('{currentTitle}', myFn, record[0]);
 
         /*
         c.on('destroy',function(){
@@ -181,6 +181,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
         });
         */
         //('title',c.title);
+        console.log('y');
         Ext.getApplication().updateWindowTitle();
         console.log('addView done', breadcrumbStore);
         return c;

@@ -1,8 +1,9 @@
-Ext.define('Tualo.routes.Dashboard',{
+Ext.define('Tualo.routes.Dashboard', {
     url: 'dashboard',
     handler: {
-        action: function(token){
+        action: function (token) {
             Ext.getApplication().addView('Tualo.dashboard.lazy.Panel');
+
         },
         before: function (action) {
             action.resume();

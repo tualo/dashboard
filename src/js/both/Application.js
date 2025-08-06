@@ -153,7 +153,9 @@ Ext.define('Tualo.Application', {
         this.setRoutes(this.getRoutes());
     },
     addView: function (viewcls, options) {
-        console.log('addView', viewcls, options);
+        console.log('addView', viewcls, options, Ext.isReady, Ext.getApplication().getMainView());
+        //this.getMainView().is
+        console.log('addView', this.getMainView().getComponent('dashboard_dashboard'));
         return this.getMainView().getComponent('dashboard_dashboard').addView(viewcls, options);
     },
     showStage: function (itemId) {
