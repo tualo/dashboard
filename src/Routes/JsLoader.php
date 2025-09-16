@@ -30,7 +30,6 @@ class JsLoader implements IRoute
                 ['js'],
                 [
                     'js' => 'application/javascript',
-
                 ]
             );
         }, ['get'], false);
