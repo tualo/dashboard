@@ -5,7 +5,7 @@ let orig = Ext.ClassManager.instantiateByAlias
 Ext.ClassManager.instantiateByAlias = function (orig) {
     return function () {
         let alias = arguments[0];
-        if (false) {
+        if (true) {
             console.debug('load alias', alias, arguments);
         }
         return orig.apply(this, arguments);
@@ -89,6 +89,15 @@ Ext.define('Tualo.Application', {
         Ext.create('Tualo.dashboard.lazy.SelfCheck').check(dsName);
     },
     launch: function (profile, e) {
+
+        if (Tualo && Tualo.js && Tualo.js.LazyLoader) {
+            Tualo.js.LazyLoader.getLoaders().then(() => {
+                Tualo.js.LazyLoader.getRequires().then((requires) => {
+                    console.log('Lazy requires', requires);
+                    Ext.require(requires);
+                });
+            });
+        }
         // this.enableDebugXType();
         Ext.getBody().removeCls('launching');
         Ext.on('routereject', (route, eOpts) => {
