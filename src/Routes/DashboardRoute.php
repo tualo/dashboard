@@ -8,7 +8,7 @@ use Tualo\Office\Basic\IRoute;
 use Tualo\Office\DS\DSTable;
 use YoHang88\LetterAvatar\LetterAvatar;
 
-class DashboardRoute implements IRoute
+class DashboardRoute extends \Tualo\Office\Basic\RouteWrapper
 {
     public static function register()
     {

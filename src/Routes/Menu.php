@@ -7,7 +7,7 @@ use Tualo\Office\Basic\Route;
 use Tualo\Office\Basic\IRoute;
 
 
-class Menu implements IRoute
+class Menu extends \Tualo\Office\Basic\RouteWrapper
 {
     public static function menu($db, $node)
     {

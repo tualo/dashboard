@@ -7,7 +7,7 @@ use Tualo\Office\Basic\Route;
 use Tualo\Office\Basic\IRoute;
 use YoHang88\LetterAvatar\LetterAvatar;
 
-class Avatar implements IRoute
+class Avatar extends \Tualo\Office\Basic\RouteWrapper
 {
     public static function register()
     {
