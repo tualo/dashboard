@@ -111,7 +111,9 @@ class DashboardRoute extends \Tualo\Office\Basic\RouteWrapper
             $files = file(TualoApplication::get('basePath') . '/vendor/tualo/dashboard/' . '/jsloader.map');
             foreach ($files as $file) {
                 $fn = TualoApplication::get('basePath') . '/vendor/tualo/dashboard/' . '' . str_replace("\n", "", str_replace("./", "", $file));
-                $files = file_get_contents($fn);
+                if (file_exists($fn)) {
+                    $files = file_get_contents($fn);
+                }
                 TualoApplication::javascriptLoader($files);
             }
         }, array('get'), false);
