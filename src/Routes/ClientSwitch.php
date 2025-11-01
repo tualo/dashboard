@@ -97,6 +97,6 @@ class ClientSwitch extends \Tualo\Office\Basic\RouteWrapper
                     TualoApplication::result('msg', $e->getMessage());
                 }
             }
-        }, array('get', 'post'), false);
+        }, array('get', 'post'), false, [], self::scope());
     }
 }
