@@ -114,15 +114,16 @@ class ProfileMenu extends \Tualo\Office\Basic\RouteWrapper
 
         Route::add('/dashboard/profilemenu', function () {
 
-            $db = TualoApplication::get('session')->getDB();
+            $db = TualoApplication::getSession()->getDB();
             try {
+                if (is_null($db)) {
+                    throw new \Exception('no db connection');
+                }
                 http_response_code(200);
                 $menu = self::menu($db, '');
                 echo json_encode($menu);
                 exit();
             } catch (\Exception $e) {
-                echo $e->getMessage();
-                exit();
                 TualoApplication::result('msg', $e->getMessage());
             }
         }, array('get', 'post'), false);
