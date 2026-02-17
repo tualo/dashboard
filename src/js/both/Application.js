@@ -88,15 +88,12 @@ Ext.define('Tualo.Application', {
     selfCheck: async function (dsName) {
         Ext.create('Tualo.dashboard.lazy.SelfCheck').check(dsName);
     },
-    launch: function (profile, e) {
+    launch: async function (profile, e) {
 
         if (Tualo && Tualo.js && Tualo.js.LazyLoader) {
-            Tualo.js.LazyLoader.getLoaders().then(() => {
-                Tualo.js.LazyLoader.getRequires().then((requires) => {
-                    console.log('Lazy requires', requires);
-                    Ext.require(requires);
-                });
-            });
+            await Tualo.js.LazyLoader.getLoaders();
+            let requires = await Tualo.js.LazyLoader.getRequires();
+            Ext.require(requires);
         }
         // this.enableDebugXType();
         Ext.getBody().removeCls('launching');
@@ -114,33 +111,6 @@ Ext.define('Tualo.Application', {
         this.getMainView().setActiveItem(this.getMainView().getComponent('loading'));
         this.ping();
 
-
-        /*
-        this.menu = Ext.create('Tualo.dashboard.view.Menu', {
-
-        });
-
-        Ext.define('Fiddle.view.Panel', {
-            extend: 'Ext.Button',
-            floating: true,
-            renderTo: document.body,
-            iconCls: 'x-fa fa-home',
-            listeners: {
-                scope: this,
-                click: () => {
-                    Ext.getApplication().menu.animadedShow();
-
-                    Ext.getApplication().menu.mon(Ext.getBody(), 'click', function (el, e) {
-                        Ext.getApplication().menu.animadedHide();
-                    }, Ext.getApplication().menu, { delegate: '.x-mask' });
-
-                }
-            }
-        });
-        el = Ext.create('Fiddle.view.Panel');
-        el.show();
-        el.setXY(10, 10, 99999)
-        */
 
     },
     getRoutes: function () {
@@ -234,5 +204,43 @@ Ext.define('Tualo.Application', {
             }
         );
         */
+    },
+    getCustomTypeSQL: function () {
+        for (key in Ext.ClassManager.aliasToName) {
+            if (key.indexOf('data.field.') == 0) {
+                let className = Ext.ClassManager.aliasToName[key]
+                let parentClassName = Ext.ClassManager.get(className).superclass.$className
+                if (className.toLowerCase().indexOf('tualo') >= 0) {
+                    let sql = `INSERT IGNORE INTO \`custom_types\`  
+                        (
+                                id,
+                                xtype_long_classic,
+                                xtype_long_modern,
+                                extendsxtype_classic,
+                                extendsxtype_modern,
+                                name,
+                                vendor,
+                                description,
+                                create_datetime,
+                                login
+                        ) VALUES
+                        (
+                            '${Ext.ClassManager.aliasToName[key]}',
+                            '${key}',
+                            '${key}',
+                            '${parentClassName}',
+                            '${parentClassName}',
+                            '${Ext.ClassManager.aliasToName[key]}',
+                            'Tualo',
+                            '',
+                            '${(new Date()).toISOString().slice(0, 19).replace('T', ' ')}',
+                            getSessionUser()
+                        );`;
+                    console.log(sql);
+                }
+            }
+        }
     }
+
+
 });
