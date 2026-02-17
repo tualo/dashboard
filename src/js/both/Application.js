@@ -88,12 +88,14 @@ Ext.define('Tualo.Application', {
     selfCheck: async function (dsName) {
         Ext.create('Tualo.dashboard.lazy.SelfCheck').check(dsName);
     },
-    launch: async function (profile, e) {
+    launch: function (profile, e) {
 
         if (Tualo && Tualo.js && Tualo.js.LazyLoader) {
-            await Tualo.js.LazyLoader.getLoaders();
-            let requires = await Tualo.js.LazyLoader.getRequires();
-            Ext.require(requires);
+            let fnx = async function () {
+                await Tualo.js.LazyLoader.getLoaders();
+                let requires = await Tualo.js.LazyLoader.getRequires();
+                Ext.require(requires);
+            }();
         }
         // this.enableDebugXType();
         Ext.getBody().removeCls('launching');
