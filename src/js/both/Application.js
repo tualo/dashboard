@@ -84,6 +84,7 @@ Ext.define('Tualo.Application', {
     getAPIPath: () => { return './' },
     onUnmatchedRoute: function (token) {
         console.error('onUnmatchedRoute', token);
+        this._keep_token = token;
     },
     selfCheck: async function (dsName) {
         Ext.create('Tualo.dashboard.lazy.SelfCheck').check(dsName);
@@ -91,21 +92,41 @@ Ext.define('Tualo.Application', {
     launch: function (profile, e) {
 
         if (Tualo && Tualo.js && Tualo.js.LazyLoader) {
+            let me = this;
             let fnx = async function () {
                 await Tualo.js.LazyLoader.getLoaders();
-                let requires = await Tualo.js.LazyLoader.getRequires();
-                Ext.require(requires);
+                try {
+                    let requires = await Tualo.js.LazyLoader.getRequires();
+                    console.log('requires', requires);
+                    Ext.require(requires, function () {
+                        console.log('all requires loaded', requires);
+                        if (me._keep_token) {
+                            console.log('redirect to _keep_token', me._keep_token);
+                            setTimeout(function () {
+                                me.registerRoutes();
+                                setTimeout(function () {
+                                    Ext.getApplication().redirectTo(me._keep_token, {
+                                        force: true
+
+                                    });
+                                }, 1000);
+                            }, 1000);
+                        }
+                    });
+                } catch (e) {
+                    console.error('error loading lazy requires', e);
+                }
             }();
         }
         // this.enableDebugXType();
         Ext.getBody().removeCls('launching');
         Ext.on('routereject', (route, eOpts) => {
             try {
-                console.error('routereject', eOpts.message)
+                console.error('routereject**', eOpts.message)
             } catch (e) {
 
             }
-            console.error('routereject', arguments)
+            console.error('routereject***', arguments)
             return true;
         })
         this.callParent([profile]);
