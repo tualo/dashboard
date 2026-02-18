@@ -112,6 +112,10 @@ Ext.define('Tualo.Application', {
                                     });
                                 }, 1000);
                             }, 1000);
+                        } else {
+                            setTimeout(function () {
+                                me.registerRoutes();
+                            }, 1000);
                         }
                     });
                 } catch (e) {
