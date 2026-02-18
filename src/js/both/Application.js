@@ -100,6 +100,7 @@ Ext.define('Tualo.Application', {
                     console.log('requires', requires);
                     Ext.require(requires, function () {
                         console.log('all requires loaded', requires);
+                        me.registerRoutes();
                         if (me._keep_token) {
                             console.log('redirect to _keep_token', me._keep_token);
                             setTimeout(function () {
