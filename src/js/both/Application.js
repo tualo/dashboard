@@ -85,6 +85,12 @@ Ext.define('Tualo.Application', {
     onUnmatchedRoute: function (token) {
         console.error('onUnmatchedRoute', token);
         this._keep_token = token;
+        setTimeout(() => {
+            Ext.getApplication().redirectTo(this._keep_token, {
+                force: true
+
+            });
+        }, 1000);
     },
     selfCheck: async function (dsName) {
         Ext.create('Tualo.dashboard.lazy.SelfCheck').check(dsName);
