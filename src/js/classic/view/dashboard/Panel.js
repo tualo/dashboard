@@ -120,7 +120,8 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
                 bind: {
                     store: '{breadcrumbs}'
                 }
-            }],
+            }, '->'
+            ],
             layout: 'card',
             items: [
                 {
@@ -142,6 +143,9 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
             c = Ext.create(cls, options || {});
         stage.add(c);
         stage.setActiveItem(c);
+
+
+        this.fireEvent('add_stage_view', this, c)
 
         let breadcrumbStore = this.getViewModel().getStore('breadcrumbs');
 
