@@ -82,15 +82,32 @@ Ext.define('Tualo.Application', {
         'logout': function () { }
     },
     getAPIPath: () => { return './' },
-    onUnmatchedRoute: function (token) {
-        console.error('onUnmatchedRoute', token);
-        this._keep_token = token;
-        setTimeout(() => {
-            Ext.getApplication().redirectTo(this._keep_token, {
-                force: true
 
+    unmatchedroutes: {},
+    onUnmatchedRoute: function (token) {
+        this._keep_token = token;
+        if (typeof this.unmatchedroutes[token] === 'undefined') {
+            this.unmatchedroutes[token] = 0;
+        };
+        this.unmatchedroutes[token]++;
+        if (this.unmatchedroutes[token] < 3) {
+            setTimeout(() => {
+                Ext.getApplication().redirectTo(this._keep_token, {
+                    force: true
+
+                });
+            }, 1000);
+        } else {
+            console.error('unmatched route', token);
+            Ext.Msg.confirm('Route nicht gefunden', `Die Route "${token}" konnte nicht gefunden werden. Möchten Sie zur Startseite wechseln?`, function (choice) {
+                if (choice === 'yes') {
+                    Ext.getApplication().redirectTo('', {
+                        force: true
+
+                    });
+                }
             });
-        }, 1000);
+        }
     },
     selfCheck: async function (dsName) {
         Ext.create('Tualo.dashboard.lazy.SelfCheck').check(dsName);

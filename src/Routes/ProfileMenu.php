@@ -124,6 +124,8 @@ class ProfileMenu extends \Tualo\Office\Basic\RouteWrapper
                 echo json_encode($menu);
                 exit();
             } catch (\Exception $e) {
+                echo $e->getMessage();
+                http_response_code(500);
                 TualoApplication::result('msg', $e->getMessage());
             }
         }, array('get', 'post'), false);
