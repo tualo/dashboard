@@ -85,6 +85,7 @@ Ext.define('Tualo.Application', {
 
     unmatchedroutes: {},
     onUnmatchedRoute: function (token) {
+        if (token == '') return;
         this._keep_token = token;
         if (typeof this.unmatchedroutes[token] === 'undefined') {
             this.unmatchedroutes[token] = 0;
