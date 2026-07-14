@@ -113,6 +113,13 @@ Ext.define('Tualo.Application', {
     selfCheck: async function (dsName) {
         Ext.create('Tualo.dashboard.lazy.SelfCheck').check(dsName);
     },
+    requiredLoaded: false,
+    getRequiredLoaded: function () {
+        return this.requiredLoaded;
+    },
+    setRequiredLoaded: function (value) {
+        this.requiredLoaded = value;
+    },
     launch: function (profile, e) {
 
         if (Tualo && Tualo.js && Tualo.js.LazyLoader) {
@@ -124,6 +131,9 @@ Ext.define('Tualo.Application', {
                     console.log('requires', requires);
                     Ext.require(requires, function () {
                         console.log('all requires loaded', requires);
+                        me.setRequiredLoaded(true);
+                        me.fireEvent('requiresloaded', requires);
+
                         me.registerRoutes();
                         if (me._keep_token) {
                             console.log('redirect to _keep_token', me._keep_token);
@@ -144,6 +154,7 @@ Ext.define('Tualo.Application', {
                     });
                 } catch (e) {
                     console.error('error loading lazy requires', e);
+                    me.setRequiredLoaded(true);
                 }
             }();
         }
