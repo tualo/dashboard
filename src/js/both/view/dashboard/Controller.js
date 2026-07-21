@@ -52,8 +52,9 @@ Ext.define('Tualo.dashboard.view.dashboard.Controller', {
     },
 
     onToggleNav: function (button, pressed) {
-        var treelist = this.lookupReference('treelist'),
-            ct = this.lookupReference('treelistContainer');
+        var treelist = this.lookupReference('treelist');
+        if (Ext.isEmpty(treelist)) return;
+        var ct = this.lookupReference('treelistContainer');
 
         treelist.setExpanderFirst(!pressed);
         treelist.setUi(pressed ? 'nav' : null);
