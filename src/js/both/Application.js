@@ -200,6 +200,12 @@ Ext.define('Tualo.Application', {
         console.log('addView', this.getMainView().getComponent('dashboard_dashboard'));
         return this.getMainView().getComponent('dashboard_dashboard').addView(viewcls, options);
     },
+    removeView: function (component) {
+        return this.getMainView().getComponent('dashboard_dashboard').removeView(component);
+    },
+    getMainView: function () {
+        return Ext.getApplication().getMainView();
+    },
     showStage: function (itemId) {
         console.log('showStage', itemId);
         this.getMainView().getComponent('dashboard_dashboard').showStage(itemId);
