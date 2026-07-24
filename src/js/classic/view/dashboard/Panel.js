@@ -137,6 +137,10 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
         let stage = this.getComponent('stage');
         stage.setActiveItem(itemId);
     },
+    removeView: function (component) {
+        let stage = this.getComponent('stage');
+        stage.remove(component);
+    },
     addView: function (cls, options) {
 
         let stage = this.getComponent('stage'),
