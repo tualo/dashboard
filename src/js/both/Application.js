@@ -100,14 +100,27 @@ Ext.define('Tualo.Application', {
             }, 1000);
         } else {
             console.error('unmatched route', token);
-            Ext.Msg.confirm('Route nicht gefunden', `Die Route "${token}" konnte nicht gefunden werden. Möchten Sie zur Startseite wechseln?`, function (choice) {
-                if (choice === 'yes') {
-                    Ext.getApplication().redirectTo('', {
-                        force: true
-
+            let fn = async function () {
+                let loggedIn = await Ext.getApplication().loggedIn();
+                if (loggedIn) {
+                    Ext.toast({
+                        title: 'Route nicht gefunden',
+                        html: `Die Route "${token}" konnte nicht gefunden werden.`,
+                        autoClose: false,
+                        closable: true,
+                        buttons: [{
+                            text: 'Startseite',
+                            handler: function () {
+                                Ext.getApplication().redirectTo('', {
+                                    force: true
+                                });
+                            }
+                        }]
                     });
                 }
-            });
+            };
+            fn();
+
         }
     },
     selfCheck: async function (dsName) {
@@ -226,6 +239,10 @@ Ext.define('Tualo.Application', {
         } catch (e) {
             console.error(e);
         }
+    },
+    loggedIn: async function () {
+        let res = await (await fetch(Ext.getApplication().getAPIPath() + 'dashboard/ping')).json();
+        return res.success;
     },
     pingTest: async function () {
         let res = await (await fetch(Ext.getApplication().getAPIPath() + 'dashboard/ping')).json();
