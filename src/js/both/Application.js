@@ -117,6 +117,10 @@ Ext.define('Tualo.Application', {
                             }
                         }]
                     });
+                } else {
+                    Ext.getApplication().redirectTo('', {
+                        force: true
+                    });
                 }
             };
             fn();
