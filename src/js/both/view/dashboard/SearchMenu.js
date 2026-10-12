@@ -8,6 +8,7 @@ Ext.define('Tualo.dashboard.view.dashboard.SearchMenu', {
     height: 50,
     controller: 'dashboard_searchmenu',
     cls: "treelist-with-nav",
+    bodyCls: "treelist-with-nav",
     //bodyPadding: "20px",
     viewModel: {
         data: {
