@@ -78,7 +78,8 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
 
                     xtype: 'dashboard_searchmenu',
                     docked: 'top',
-                    dock: 'top'
+                    dock: 'top',
+                    ui: 'nav',
                 },
                 {
                     ui: 'nav',
@@ -97,6 +98,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
                     xtype: 'dashboard_profilemenu',
                     docked: 'bottom',
                     dock: 'bottom',
+                    ui: 'nav',
                 }
             ]
         }, {

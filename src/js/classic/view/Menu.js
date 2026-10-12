@@ -12,10 +12,12 @@ Ext.define('Tualo.dashboard.view.Menu', {
     dockedItems: [{
 
         xtype: 'dashboard_searchmenu',
+        ui: 'nav',
         dock: 'top'
     }, {
         xtype: 'dashboard_profilemenu',
         dock: 'bottom',
+        ui: 'nav',
         height: 150
     }],
     items: [
