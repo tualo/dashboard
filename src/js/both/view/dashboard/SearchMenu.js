@@ -3,17 +3,18 @@ Ext.define('Tualo.dashboard.view.dashboard.SearchMenu', {
     alias: "widget.dashboard_searchmenu",
     layout: {
         type: 'hbox',
-       // align: 'stretch'
+        // align: 'stretch'
     },
     height: 50,
     controller: 'dashboard_searchmenu',
+    cls: "treelist-with-nav",
     //bodyPadding: "20px",
     viewModel: {
         data: {
             width: 230,
         },
         formulas: {
-            iconVisible: function(get){
+            iconVisible: function (get) {
                 return get('width') < 230;
             }
         }
@@ -48,21 +49,21 @@ Ext.define('Tualo.dashboard.view.dashboard.SearchMenu', {
             },
             enableKeyEvents: true,
             listeners: {
-                keypress: function(fld,e){
-                    fld.up('dashboard_searchmenu').getController().onSearchKeyPress(fld,e);
+                keypress: function (fld, e) {
+                    fld.up('dashboard_searchmenu').getController().onSearchKeyPress(fld, e);
                 },
-                focus: function(fld){
-                    fld.up('dashboard_dashboard').getController().onSearchFieldFocus(fld,true);
+                focus: function (fld) {
+                    fld.up('dashboard_dashboard').getController().onSearchFieldFocus(fld, true);
                 },
-                blur: function(fld){
-                    fld.up('dashboard_dashboard').getController().onSearchFieldFocus(fld,false);
+                blur: function (fld) {
+                    fld.up('dashboard_dashboard').getController().onSearchFieldFocus(fld, false);
                 }
             },
             triggers: {
                 clear: {
                     weight: 0,
                     cls: Ext.baseCSSPrefix + "form-clear-trigger",
-                    handler: function(field) {
+                    handler: function (field) {
                         field.setValue("");
                         field.up('dashboard_dashboard').getViewModel().get('navItems').removeAll();
                         field.up('dashboard_dashboard').getViewModel().get('navItems').load();
@@ -71,8 +72,8 @@ Ext.define('Tualo.dashboard.view.dashboard.SearchMenu', {
                 collapse: {
                     weight: 0,
                     cls: Ext.baseCSSPrefix + "form-bar-trigger",
-                    handler: function(field) {
-                        field.up('dashboard_dashboard').getController().onToggleMicro(null,true);
+                    handler: function (field) {
+                        field.up('dashboard_dashboard').getController().onToggleMicro(null, true);
                     }
                 }
             }
