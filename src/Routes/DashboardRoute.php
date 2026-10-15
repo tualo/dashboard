@@ -7,6 +7,7 @@ use Tualo\Office\Basic\Route;
 use Tualo\Office\Basic\IRoute;
 use Tualo\Office\DS\DSTable;
 use YoHang88\LetterAvatar\LetterAvatar;
+use Tualo\Office\Basic\Notifications;
 
 class DashboardRoute extends \Tualo\Office\Basic\RouteWrapper
 {
@@ -70,7 +71,7 @@ class DashboardRoute extends \Tualo\Office\Basic\RouteWrapper
                         } catch (\Exception $e) {
                             // TualoApplication::result('user_error', $e->getMessage());
                         }
-
+                        TualoApplication::result('notifications', Notifications::getInstance()->getNotifications());
 
                         http_response_code(200);
                         TualoApplication::result('success', true);
@@ -108,9 +109,9 @@ class DashboardRoute extends \Tualo\Office\Basic\RouteWrapper
         Route::add('/dashboard/test', function () {
             TualoApplication::result('success', false);
             TualoApplication::result('success', true);
-            $files = file(TualoApplication::get('basePath') . '/vendor/tualo/dashboard/' . '/jsloader.map');
+            $files = file((string)TualoApplication::get('basePath') . '/vendor/tualo/dashboard/' . '/jsloader.map');
             foreach ($files as $file) {
-                $fn = TualoApplication::get('basePath') . '/vendor/tualo/dashboard/' . '' . str_replace("\n", "", str_replace("./", "", $file));
+                $fn = ((string)TualoApplication::get('basePath') . '/vendor/tualo/dashboard/' . '' . str_replace("\n", "", str_replace("./", "", $file)));
                 if (file_exists($fn)) {
                     $files = file_get_contents($fn);
                 }
