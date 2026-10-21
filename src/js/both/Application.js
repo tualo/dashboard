@@ -1,6 +1,26 @@
 Ext.Loader.setPath('Tualo.dashboard', './jsdashboard');
 Ext.Loader.setPath('Tualo.dashboard.lazy', './jsdashboard');
 
+Ext.define('Tualo.override.grid.header.Container', {
+    override: 'Ext.grid.header.Container',
+    move: function (b, e) {
+        var d = this, c = d.items, a;
+        if (b.isComponent) {
+            a = b;
+            b = c.indexOf(a)
+        } else {
+            a = c.getAt(b)
+        }
+        if (a) {
+
+            a.visibleFromIdx = d.getRootHeaderCt().visibleColumnManager.indexOf(a);
+        } else {
+            console.warn('Tualo.override.grid.header.Container', 'Attempted to move a header that does not exist.');
+        }
+        Ext.container.Container.prototype.move.apply(this, arguments)
+    },
+});
+
 let orig = Ext.ClassManager.instantiateByAlias
 Ext.ClassManager.instantiateByAlias = function (orig) {
     return function () {
@@ -138,6 +158,7 @@ Ext.define('Tualo.Application', {
         this.requiredLoaded = value;
     },
     launch: function (profile, e) {
+        Ext.state.Manager.setProvider(new Ext.state.LocalStorageProvider());
 
         if (Tualo && Tualo.js && Tualo.js.LazyLoader) {
             let me = this;
