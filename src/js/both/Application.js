@@ -32,6 +32,7 @@ Ext.ClassManager.instantiateByAlias = function (orig) {
     }
 }(orig);
 
+Ext.Ajax.disableCaching = false;
 Ext.define('Tualo.Application', {
     extend: 'Ext.app.Application',
     name: 'Tualo',
