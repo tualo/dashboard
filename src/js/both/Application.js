@@ -3,7 +3,7 @@ Ext.Loader.setPath('Tualo.dashboard.lazy', './jsdashboard');
 
 Ext.define('Tualo.override.grid.header.Container', {
     override: 'Ext.grid.header.Container',
-    move: function (b, e) {
+    move: async function (b, e) {
         var d = this, c = d.items, a;
         if (b.isComponent) {
             a = b;
