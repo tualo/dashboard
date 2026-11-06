@@ -101,97 +101,203 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
             flex: 1,
             bbar: [{
                 xtype: 'dataview',
-                showIcons: true,
+                flex: 1,
+                cls: 'tualo-breadcrumb-bar',
                 tpl: [
                     '<tpl for=".">',
-                    '<div style=" display: inline; margin-right: 12px; max-width: 50px; width: 50px;overflow: hidden;text-overflow: ellipsis;" class="breadcrumb-wrap">',
-                    '<span>{text}</span>',
+                    '<div class="tualo-breadcrumb-item{[values.active ? " tualo-breadcrumb-item-active" : ""]}">',
+                    '<tpl if="iconCls"><span class="tualo-breadcrumb-icon {iconCls}"></span></tpl>',
+                    '<span class="tualo-breadcrumb-text">{text:htmlEncode}</span>',
+                    '<tpl if="closable"><span class="tualo-breadcrumb-close x-fa fa-xmark" role="button" data-qtip="Schlie&szlig;en"></span></tpl>',
                     '</div>',
                     '</tpl>'
                 ],
                 listeners: {
-                    itemclick(me, record, item, index, e, eOpts) {
-                        console.log('itemclick', me, record, item, index, e, eOpts);
-                        me.up('dashboard_dashboard').showStage(record.get('itemId'))
+                    itemclick: function (view, record, item, index, e) {
+                        let panel = view.up('dashboard_dashboard');
+                        if (e.getTarget('.tualo-breadcrumb-close')) {
+                            panel.closeView(record.get('itemId'));
+                        } else {
+                            panel.showStage(record.get('itemId'));
+                        }
                     }
                 },
-                itemSelector: 'div.breadcrumb-wrap',
+                itemSelector: 'div.tualo-breadcrumb-item',
                 emptyText: '',
                 bind: {
                     store: '{breadcrumbs}'
                 }
-            }, '->'
-            ],
+            }],
             layout: 'card',
             items: [
                 {
                     xtype: 'panel',
+                    itemId: 'dashboard_home',
                     layout: 'card',
                     listeners: {
                         boxready: 'onDashboardReady'
                     }
                 }
             ]
-        }],
-    showStage: function (itemId) {
-        let stage = this.getComponent('stage');
-        stage.setActiveItem(itemId);
-    },
-    removeView: function (component) {
-        let stage = this.getComponent('stage');
-        stage.remove(component);
-    },
-    addView: function (cls, options) {
-
-        let stage = this.getComponent('stage'),
-            c = Ext.create(cls, options || {});
-        stage.add(c);
-        stage.setActiveItem(c);
-
-
-        this.fireEvent('add_stage_view', this, c)
-
-        let breadcrumbStore = this.getViewModel().getStore('breadcrumbs');
-
-        /*
-        console.log(breadcrumbStore);
-        console.log(breadcrumbStore.isLoaded);
-        console.log(breadcrumbStore.load());
-        */
-
-        console.log('length', breadcrumbStore.getRange().length);
-
-
-        let record = breadcrumbStore.add({
-            itemId: c.itemId,
-            text: '...',
-            iconCls: c.iconCls
-        });
-
-        let myFn = function (v) {
-            this.set('text', v);
-            console.log('c.getViewModel().bind', v);
         }
-        if (c.getViewModel())
-            c.getViewModel().bind('{currentTitle}', myFn, record[0]);
+    ],
+    afterRender: function () {
+        this.callParent(arguments);
+        this.initBreadcrumbs();
+    },
 
-        /*
-        c.on('destroy',function(){
-            stage.remove(c);
-            stage.setActiveItem(0);
-            breadcrumbStore.removeAt(breadcrumbStore.getCount()-1);
+    getBreadcrumbStore: function () {
+        return this.getViewModel().getStore('breadcrumbs');
+    },
+
+    // Legt den (nicht schließbaren) Home-Eintrag an und überwacht das
+    // Entfernen von Stage-Komponenten, damit die Breadcrumbs immer den
+    // tatsächlichen Stage-Inhalt widerspiegeln.
+    initBreadcrumbs: function () {
+        let stage = this.getComponent('stage'),
+            store = this.getBreadcrumbStore();
+
+        if (!this._breadcrumbsInitialized) {
+            this._breadcrumbsInitialized = true;
+            stage.on('remove', this.onStageViewRemoved, this);
+        }
+
+        if (store.findExact('itemId', 'dashboard_home') === -1) {
+            store.insert(0, {
+                itemId: 'dashboard_home',
+                text: 'Dashboard',
+                iconCls: 'x-fa fa-house',
+                closable: false,
+                active: store.findExact('active', true) === -1
+            });
+        }
+    },
+
+    syncActiveBreadcrumb: function (itemId) {
+        this.getBreadcrumbStore().each(function (rec) {
+            rec.set('active', rec.get('itemId') === itemId);
         });
-        */
-        /*
-        c.on('titlechange',function(){
-            // let rec = breadcrumbStore.getAt(breadcrumbStore.getCount()-1);
-            record.set('text',c.title);
+    },
+
+    showStage: function (itemId) {
+        let stage = this.getComponent('stage'),
+            c = stage.getComponent(itemId);
+        if (c) {
+            stage.setActiveItem(c);
+            this.syncActiveBreadcrumb(itemId);
+        }
+    },
+
+    closeView: function (itemId) {
+        let c = this.getComponent('stage').getComponent(itemId);
+        if (c && c.getItemId() !== 'dashboard_home') {
+            this.removeView(c);
+        }
+    },
+
+    removeView: function (component) {
+        // Breadcrumb-Pflege übernimmt der remove-Listener (onStageViewRemoved),
+        // damit auch extern zerstörte Komponenten korrekt aufgeräumt werden.
+        this.getComponent('stage').remove(component);
+    },
+
+    onStageViewRemoved: function (stage, component) {
+        let store = this.getBreadcrumbStore(),
+            idx = store.findExact('itemId', component.getItemId());
+
+        if (idx !== -1) {
+            let wasActive = store.getAt(idx).get('active');
+            store.removeAt(idx);
+            if (wasActive) {
+                // benachbarten Eintrag aktivieren (links bevorzugt)
+                let next = store.getAt(idx - 1) || store.getAt(0);
+                if (next) {
+                    this.showStage(next.get('itemId'));
+                }
+            }
+            Ext.getApplication().updateWindowTitle();
+        }
+    },
+
+    getBreadcrumbTitle: function (c) {
+        let title = '...';
+        if (typeof c.getWindowTitle === 'function') {
+            title = c.getWindowTitle();
+        } else if (typeof c.getTitle === 'function') {
+            title = c.getTitle();
+        } else if (typeof c.title === 'string') {
+            title = c.title;
+        }
+        return title;
+    },
+
+    addView: function (cls, options) {
+        let me = this, stage = this.getComponent('stage'),
+            c = Ext.create(cls, options || {}),
+            title = this.getBreadcrumbTitle(c),
+            icon = 'fa-regular fa-file',
+            store;
+
+        this.initBreadcrumbs();
+        store = this.getBreadcrumbStore();
+
+        stage.add(c);
+
+        this.fireEvent('add_stage_view', this, c);
+
+
+
+
+        if (typeof c.getWindowIcon === 'function') {
+            icon = c.getWindowIcon();
+        } else if (typeof c.iconCls === 'string') {
+            icon = c.iconCls;
+        }
+
+        if (!icon) {
+            icon = 'fa-regular fa-file';
+        }
+
+        console.log('Adding view with title:', title, 'and icon:', icon);
+
+        let record = store.add({
+            itemId: c.getItemId(),
+            text: title,
+            iconCls: icon
+        })[0];
+
+        // Titel aktuell halten: bevorzugt über ViewModel-Binding,
+        // zusätzlich über das titlechange-Event
+        if (c.getViewModel()) {
+            c.getViewModel().bind('{currentTitle}', function (v) {
+                if (!Ext.isEmpty(v)) {
+                    this.set('text', v);
+                }
+            }, record);
+        }
+
+        if (c.getViewModel()) {
+            c.getViewModel().bind('{currentIcon}', function (v) {
+                if (!Ext.isEmpty(v)) {
+                    this.set('iconCls', v);
+                }
+            }, record);
+        }
+
+        c.on('titlechange', function (cmp, title) {
+            console.log('Title changed for', cmp, 'new title:', title);
+            record.set('text', me.getBreadcrumbTitle(cmp));
         });
-        */
-        //('title',c.title);
-        console.log('y');
+
+
+        c.on('iconchange', function (cmp, icon) {
+            console.log('Icon changed for', cmp, 'new icon:', icon);
+            record.set('iconCls', icon);
+        });
+
+
+        this.showStage(c.getItemId());
         Ext.getApplication().updateWindowTitle();
-        console.log('addView done', breadcrumbStore);
         return c;
     },
     setSessionPing: function (data) {

@@ -29,7 +29,9 @@ Ext.define('Tualo.dashboard.view.dashboard.Model', {
                 {name: 'itemId',        type: 'string'},
                 {name: 'text',          type: 'string'},
                 {name: 'link',          type: 'string'},
-                {name: 'iconCls',       type: 'string'}
+                {name: 'iconCls',       type: 'string'},
+                {name: 'active',        type: 'boolean', defaultValue: false},
+                {name: 'closable',      type: 'boolean', defaultValue: true}
             ],
             proxy: {
                 type: 'memory',

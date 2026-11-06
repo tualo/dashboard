@@ -1,0 +1,60 @@
+.tualo-breadcrumb-bar {
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    .x-dataview-item {
+        background: transparent;
+        padding: 0;
+    }
+}
+
+.tualo-breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+    max-width: 180px;
+    padding: 4px 10px;
+    margin-right: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #5a6773;
+    vertical-align: middle;
+
+    &:hover {
+        background-color: rgba(50, 64, 78, 0.12);
+    }
+}
+
+.tualo-breadcrumb-item-active {
+    background-color: #32404e;
+    color: #fff;
+
+    &:hover {
+        background-color: #32404e;
+    }
+}
+
+.tualo-breadcrumb-icon {
+    margin-right: 6px;
+    font-size: 12px;
+}
+
+.tualo-breadcrumb-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tualo-breadcrumb-close {
+    margin-left: 8px;
+    padding: 2px 3px;
+    border-radius: 50%;
+    font-size: 10px;
+    line-height: 1;
+    opacity: 0.6;
+
+    &:hover {
+        opacity: 1;
+        background-color: rgba(128, 128, 128, 0.35);
+    }
+}
