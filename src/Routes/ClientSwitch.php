@@ -6,7 +6,6 @@ use Tualo\Office\Basic\TualoApplication;
 use Tualo\Office\Basic\Route;
 use Tualo\Office\Basic\IRoute;
 use Tualo\Office\DS\DSTable;
-use YoHang88\LetterAvatar\LetterAvatar;
 
 class ClientSwitch extends \Tualo\Office\Basic\RouteWrapper
 {

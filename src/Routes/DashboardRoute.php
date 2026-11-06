@@ -6,7 +6,6 @@ use Tualo\Office\Basic\TualoApplication;
 use Tualo\Office\Basic\Route;
 use Tualo\Office\Basic\IRoute;
 use Tualo\Office\DS\DSTable;
-use YoHang88\LetterAvatar\LetterAvatar;
 use Tualo\Office\Basic\Notifications;
 
 class DashboardRoute extends \Tualo\Office\Basic\RouteWrapper
@@ -44,38 +43,49 @@ class DashboardRoute extends \Tualo\Office\Basic\RouteWrapper
 
                         try {
                             TualoApplication::result('gst', $db->singleValue('select getSessionCurrentOffice() v', [], 'v'));
-                            $avatar = new LetterAvatar($db->singleValue('select getSessionCurrentOffice() v', [], 'v'), 'square', 64);
-                            //   $avatar->setColor($backgroundColor, $foregroundColor)
-                            TualoApplication::result('gstavatar',  $avatar->__toString());
                         } catch (\Exception $e) {
+                            TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
                         }
                         try {
-                            TualoApplication::result('bkr', $db->singleValue('select getSessionCurrentBKR() v', [], 'v'));
-
-
-                            $avatar = new LetterAvatar($db->singleValue('select getSessionCurrentBKR() v', [], 'v'), 'square', 64);
-                            //   $avatar->setColor($backgroundColor, $foregroundColor)
-                            TualoApplication::result('bkravatar',  $avatar->__toString());
+                            TualoApplication::result('gstavatar', Avatar::dataUri($db->singleValue('select getSessionCurrentOffice() v', [], 'v')));
                         } catch (\Exception $e) {
+                            TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
                         }
-                        $avatar = new LetterAvatar($_SESSION['tualoapplication']['fullname'], 'square', 64);
-                        TualoApplication::result('avatar',  $avatar->__toString());
-
-                        $avatar = new LetterAvatar($_SESSION['tualoapplication']['client'], 'square', 64);
-                        TualoApplication::result('clientavatar',  $avatar->__toString());
-                        // TualoApplication::result('gravatar', $grav_url = "https://www.gravatar.com/avatar/" . hash("sha256", strtolower(trim($_SESSION['tualoapplication']['username']))));
-
-
-                        try {
-                            TualoApplication::result('user', $db->singleRow('select * from view_session_users where login = getSessionUser()', []));
-                        } catch (\Exception $e) {
-                            // TualoApplication::result('user_error', $e->getMessage());
-                        }
-                        TualoApplication::result('notifications', Notifications::getInstance()->getNotifications());
-
-                        http_response_code(200);
-                        TualoApplication::result('success', true);
                     }
+                    try {
+                        TualoApplication::result('bkr', $db->singleValue('select getSessionCurrentBKR() v', [], 'v'));
+                    } catch (\Exception $e) {
+                        TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
+                    }
+                    try {
+
+                        TualoApplication::result('bkravatar', Avatar::dataUri($db->singleValue('select getSessionCurrentBKR() v', [], 'v')));
+                    } catch (\Exception $e) {
+                        TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
+                    }
+                    try {
+                        TualoApplication::result('avatar', Avatar::dataUri($_SESSION['tualoapplication']['fullname']));
+                    } catch (\Exception $e) {
+                        TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
+                    }
+
+                    try {
+                        TualoApplication::result('clientavatar', Avatar::dataUri($_SESSION['tualoapplication']['client']));
+                    } catch (\Exception $e) {
+                        TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
+                    }
+
+
+                    try {
+                        TualoApplication::result('user', $db->singleRow('select * from view_session_users where login = getSessionUser()', []));
+                    } catch (\Exception $e) {
+                        // TualoApplication::result('user_error', $e->getMessage());
+                        TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
+                    }
+                    TualoApplication::result('notifications', Notifications::getInstance()->getNotifications());
+
+                    http_response_code(200);
+                    TualoApplication::result('success', true);
                 }
             } catch (\Exception $e) {
                 TualoApplication::result('msg', $e->getMessage());

@@ -18,7 +18,7 @@
     ]
   },
   "require": {
-    "yohang88/letter-avatar": "2.3.0",
+    "naas/php-initial-avatar-generator": "^4.5.0",
     "tualo/bsc": "^1.4",
     "tualo/ds": "^1.5"
   },
