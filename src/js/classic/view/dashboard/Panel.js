@@ -99,6 +99,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
             xtype: 'panel',
             itemId: 'stage',
             flex: 1,
+
             bbar: [{
                 xtype: 'dataview',
                 flex: 1,
@@ -150,9 +151,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
         return this.getViewModel().getStore('breadcrumbs');
     },
 
-    // Legt den (nicht schließbaren) Home-Eintrag an und überwacht das
-    // Entfernen von Stage-Komponenten, damit die Breadcrumbs immer den
-    // tatsächlichen Stage-Inhalt widerspiegeln.
+    // Classic meldet Kartenwechsel auf der aktivierten Karte, nicht auf der Stage.
     initBreadcrumbs: function () {
         let stage = this.getComponent('stage'),
             store = this.getBreadcrumbStore();
@@ -160,6 +159,10 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
         if (!this._breadcrumbsInitialized) {
             this._breadcrumbsInitialized = true;
             stage.on('remove', this.onStageViewRemoved, this);
+            stage.on('add', this.onStageViewAdded, this);
+            stage.items.each(function (component) {
+                this.onStageViewAdded(stage, component);
+            }, this);
         }
 
         if (store.findExact('itemId', 'dashboard_home') === -1) {
@@ -167,15 +170,24 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
                 itemId: 'dashboard_home',
                 text: 'Dashboard',
                 iconCls: 'x-fa fa-house',
-                closable: false,
-                active: store.findExact('active', true) === -1
+                closable: false
             });
         }
+        this.syncActiveBreadcrumb();
     },
 
-    syncActiveBreadcrumb: function (itemId) {
+    onStageViewAdded: function (stage, component) {
+        this.mon(component, 'activate', this.syncActiveBreadcrumb, this);
+    },
+
+    syncActiveBreadcrumb: function () {
+        let activeItem = this.getComponent('stage').getLayout().getActiveItem(),
+            itemId = activeItem ? activeItem.getItemId() : null;
+
         this.getBreadcrumbStore().each(function (rec) {
+            console.log('syncActiveBreadcrumb', rec.get('itemId'), itemId);
             rec.set('active', rec.get('itemId') === itemId);
+
         });
     },
 
@@ -184,7 +196,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
             c = stage.getComponent(itemId);
         if (c) {
             stage.setActiveItem(c);
-            this.syncActiveBreadcrumb(itemId);
+            this.syncActiveBreadcrumb();
         }
     },
 
@@ -202,6 +214,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
     },
 
     onStageViewRemoved: function (stage, component) {
+        this.mun(component, 'activate', this.syncActiveBreadcrumb, this);
         let store = this.getBreadcrumbStore(),
             idx = store.findExact('itemId', component.getItemId());
 
