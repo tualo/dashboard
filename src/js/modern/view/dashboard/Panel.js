@@ -124,7 +124,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
                         if (location.event.getTarget('.tualo-breadcrumb-close')) {
                             panel.closeView(record.get('itemId'));
                         } else {
-                            panel.showStage(record.get('itemId'));
+                            panel.getController().onBreadcrumbSelect(record);
                         }
                     }
                 },
@@ -169,6 +169,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
             store.insert(0, {
                 itemId: 'dashboard_home',
                 text: 'Dashboard',
+                link: '',
                 iconCls: 'x-fa fa-house',
                 closable: false
             });
@@ -227,6 +228,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
 
     addView: function (cls, options) {
         let stage = this.getComponent('stage'),
+            routeToken = Ext.util.History.getToken() || '',
             c = Ext.create(cls, options || {}),
             store;
 
@@ -239,6 +241,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
 
         let record = store.add({
             itemId: c.getItemId(),
+            link: routeToken,
             text: (c.getTitle && c.getTitle()) || '...',
             iconCls: c.iconCls
         })[0];

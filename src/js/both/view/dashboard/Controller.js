@@ -3,6 +3,13 @@ Ext.define('Tualo.dashboard.view.dashboard.Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.dashboard_dashboard',
 
+    onBreadcrumbSelect: function (record) {
+        this.getView().showStage(record.get('itemId'));
+        if (record.get('active')) {
+            Ext.getApplication().redirectTo(record.get('link'));
+        }
+    },
+
     onDashboardReady: function (panel) {
     },
     onBoxReady: function (x) {
