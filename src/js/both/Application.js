@@ -25,7 +25,7 @@ let orig = Ext.ClassManager.instantiateByAlias
 Ext.ClassManager.instantiateByAlias = function (orig) {
     return function () {
         let alias = arguments[0];
-        if (true) {
+        if (false) {
             console.debug('load alias', alias, arguments);
         }
         return orig.apply(this, arguments);
