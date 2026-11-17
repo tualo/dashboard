@@ -41,6 +41,7 @@ class DashboardRoute extends \Tualo\Office\Basic\RouteWrapper
                         $_SESSION['tualoapplication']['last_contact'] = time();
                         @session_commit();
 
+                        /*
                         try {
                             TualoApplication::result('gst', $db->singleValue('select getSessionCurrentOffice() v', [], 'v'));
                         } catch (\Exception $e) {
@@ -51,7 +52,10 @@ class DashboardRoute extends \Tualo\Office\Basic\RouteWrapper
                         } catch (\Exception $e) {
                             // TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
                         }
+                        */
                     }
+
+                    /*
                     try {
                         TualoApplication::result('bkr', $db->singleValue('select getSessionCurrentBKR() v', [], 'v'));
                     } catch (\Exception $e) {
@@ -63,6 +67,7 @@ class DashboardRoute extends \Tualo\Office\Basic\RouteWrapper
                     } catch (\Exception $e) {
                         //TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
                     }
+                        */
                     try {
                         TualoApplication::result('avatar', Avatar::dataUri($_SESSION['tualoapplication']['fullname']));
                     } catch (\Exception $e) {
