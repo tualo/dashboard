@@ -62,6 +62,7 @@ Ext.define('Tualo.dashboard.view.dashboard.Controller', {
         var treelist = this.lookupReference('treelist');
         if (Ext.isEmpty(treelist)) return;
         var ct = this.lookupReference('treelistContainer');
+        if (Ext.isEmpty(ct)) return;
 
         treelist.setExpanderFirst(!pressed);
         treelist.setUi(pressed ? 'nav' : null);

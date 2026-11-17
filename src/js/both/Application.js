@@ -149,7 +149,8 @@ Ext.define('Tualo.Application', {
         }
     },
     selfCheck: async function (dsName) {
-        Ext.create('Tualo.dashboard.lazy.SelfCheck').check(dsName);
+        let ct = Ext.create;
+        ct('Tualo.dashboard.lazy.SelfCheck').check(dsName);
     },
     requiredLoaded: false,
     getRequiredLoaded: function () {

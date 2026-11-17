@@ -44,35 +44,35 @@ class DashboardRoute extends \Tualo\Office\Basic\RouteWrapper
                         try {
                             TualoApplication::result('gst', $db->singleValue('select getSessionCurrentOffice() v', [], 'v'));
                         } catch (\Exception $e) {
-                            TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
+                            //TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
                         }
                         try {
                             TualoApplication::result('gstavatar', Avatar::dataUri($db->singleValue('select getSessionCurrentOffice() v', [], 'v')));
                         } catch (\Exception $e) {
-                            TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
+                            // TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
                         }
                     }
                     try {
                         TualoApplication::result('bkr', $db->singleValue('select getSessionCurrentBKR() v', [], 'v'));
                     } catch (\Exception $e) {
-                        TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
+                        //TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
                     }
                     try {
 
                         TualoApplication::result('bkravatar', Avatar::dataUri($db->singleValue('select getSessionCurrentBKR() v', [], 'v')));
                     } catch (\Exception $e) {
-                        TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
+                        //TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
                     }
                     try {
                         TualoApplication::result('avatar', Avatar::dataUri($_SESSION['tualoapplication']['fullname']));
                     } catch (\Exception $e) {
-                        TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
+                        //TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
                     }
 
                     try {
                         TualoApplication::result('clientavatar', Avatar::dataUri($_SESSION['tualoapplication']['client']));
                     } catch (\Exception $e) {
-                        TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
+                        //TualoApplication::logger('DashboardRoute')->error($e->getMessage(), ['exception' => $e]);
                     }
 
 

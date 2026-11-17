@@ -11,7 +11,7 @@ Ext.define('Tualo.dashboard.MenuProfile', {
         },
         stores: {
             navItems: {
-    
+
                 autoLoad: true,
                 type: 'tree',
                 listeners: {
@@ -33,7 +33,7 @@ Ext.define('Tualo.dashboard.MenuProfile', {
     layout: 'fit',
     // height: 132,
     items: [
-            
+
         {
             width: 230,
             split: true,
