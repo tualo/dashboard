@@ -1,7 +1,7 @@
 
 Ext.define('Tualo.dashboard.view.Menu', {
     extend: 'Ext.panel.Panel',
-    width: 230,
+
     layout: {
         type: 'vbox',
         align: 'stretch'

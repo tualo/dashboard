@@ -25,7 +25,7 @@ let orig = Ext.ClassManager.instantiateByAlias
 Ext.ClassManager.instantiateByAlias = function (orig) {
     return function () {
         let alias = arguments[0];
-        if (false) {
+        if (Ext.getApplication && Ext.getApplication().getDebug()) {
             console.debug('load alias', alias, arguments);
         }
         return orig.apply(this, arguments);
@@ -52,7 +52,7 @@ Ext.define('Tualo.Application', {
         Ext.ClassManager.instantiateByAlias = function (orig) {
             return function () {
                 let alias = arguments[0];
-                if (false) {
+                if (Ext.getApplication && Ext.getApplication().getDebug()) {
                     console.debug('load alias', alias, arguments);
                 }
                 return orig.apply(this, arguments);
@@ -317,7 +317,7 @@ Ext.define('Tualo.Application', {
         */
     },
     getCustomTypeSQL: function () {
-        for (key in Ext.ClassManager.aliasToName) {
+        for (var key in Ext.ClassManager.aliasToName) {
             if (key.indexOf('data.field.') == 0) {
                 let className = Ext.ClassManager.aliasToName[key]
                 let parentClassName = Ext.ClassManager.get(className).superclass.$className

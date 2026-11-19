@@ -4,10 +4,7 @@ Ext.define('Tualo.dashboard.view.dashboard.ProfileMenu', {
 
     layout: 'fit',
     controller: 'dashboard_profilemenu',
-    listeners: {
-        resize: 'onResize',
-        "boxready": 'onBoxReady'
-    },
+
 
     viewModel: {
         data: {
