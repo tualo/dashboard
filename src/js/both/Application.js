@@ -92,7 +92,8 @@ Ext.define('Tualo.Application', {
     requires: [
         'Ext.*',
         'Tualo.*',
-        'IconFont.*'
+        'IconFont.*',
+        'Tualo.dashboard.view.NotLoggedInMask'
     ],
     mainView: 'Tualo.dashboard.view.main.Panel',
     listeners: {
@@ -274,7 +275,28 @@ Ext.define('Tualo.Application', {
     pingTest: async function () {
         let res = await (await fetch(Ext.getApplication().getAPIPath() + 'dashboard/ping')).json();
         if (res.success == false) {
-            alert('not logged in');
+
+            this.getMainView().set
+            Ext.getApplication().getMainView().setLoading(
+                {
+                    renderTpl: [
+                        '<div id="{id}-msgWrapEl" data-ref="msgWrapEl" class="{[values.$comp.msgWrapCls]}" role="presentation">',
+                        '<div id="{id}-msgEl" data-ref="msgEl" class="{[values.$comp.msgCls]} ',
+                        Ext.baseCSSPrefix, 'mask-msg-inner {childElCls}" role="presentation">',
+                        '<div id="{id}-msgTextEl" data-ref="msgTextEl" class="',
+                        Ext.baseCSSPrefix, 'mask-msg-text',
+                        '{childElCls}" role="presentation">{msg}</div>',
+
+                        '<div style="text-align:center;margin-top:20px;">',
+                        '<button onclick="window.location.reload()">Seite neu laden</button>',
+                        '</div>',
+
+                        '</div>',
+                        '</div>'
+                    ],
+                    msg: 'Ihre Sitzung ist abgelaufen'
+                }
+            );
         } else {
             setTimeout(this.pingTest.bind(this), 60000);
         }
