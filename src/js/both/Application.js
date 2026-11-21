@@ -92,8 +92,7 @@ Ext.define('Tualo.Application', {
     requires: [
         'Ext.*',
         'Tualo.*',
-        'IconFont.*',
-        'Tualo.dashboard.view.NotLoggedInMask'
+        'IconFont.*'
     ],
     mainView: 'Tualo.dashboard.view.main.Panel',
     listeners: {
