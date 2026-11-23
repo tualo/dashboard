@@ -2,26 +2,26 @@ Ext.define('Tualo.dashboard.view.dashboard.WindowMenu', {
     extend: 'Ext.Toolbar',
     alias: "widget.dashboard_windowmenu",
 
-    xtype: 'toolbar',
+    // xtype: 'toolbar',
     dock: 'bottom',
-    initComponent: function(){
+    initComponent: function () {
         var me = this;
         me.callParent();
-        
+
     },
-    onBoxReady: function(){
+    onBoxReady: function () {
         var me = this;
         me.callParent(arguments);
-        try{
-            if(me.up().up().getItemId()=='stage'){
+        try {
+            if (me.up().up().getItemId() == 'stage') {
                 // me.up().up().on('beforeadd',this.beforeadd,me);
             }
-        }catch(e){
-            
+        } catch (e) {
+
         }
     },
-    beforeadd: function(container,component,index,eOpts){
-        console.log('beforeadd',arguments);
+    beforeadd: function (container, component, index, eOpts) {
+        console.log('beforeadd', arguments);
         this.add({
             iconCls: null,
             text: "wnd",

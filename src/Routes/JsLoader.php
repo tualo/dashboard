@@ -2,7 +2,7 @@
 
 namespace Tualo\Office\Dashboard\Routes;
 
-use phpseclib3\Math\BigInteger\Engines\PHP;
+use phpseclib4\Math\BigInteger\Engines\PHP;
 use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\Basic\Route as BasicRoute;
 use Tualo\Office\Basic\IRoute;
