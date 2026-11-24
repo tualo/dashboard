@@ -196,8 +196,10 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
     },
 
     closeView: function (itemId) {
-        let c = this.getComponent('stage').getComponent(itemId);
+        let stage = this.getComponent('stage'),
+            c = stage.getComponent(itemId);
         if (c && c.getItemId() !== 'dashboard_home') {
+            c._breadcrumbCloseWasActive = stage.getActiveItem() === c;
             this.removeView(c);
         }
     },
@@ -213,13 +215,18 @@ Ext.define('Tualo.dashboard.view.dashboard.Panel', {
             idx = store.findExact('itemId', component.getItemId());
 
         if (idx !== -1) {
-            let wasActive = store.getAt(idx).get('active');
+            let closedActiveBreadcrumb = component._breadcrumbCloseWasActive,
+                wasActive = closedActiveBreadcrumb || store.getAt(idx).get('active');
             store.removeAt(idx);
             if (wasActive) {
                 // benachbarten Eintrag aktivieren (links bevorzugt)
                 let next = store.getAt(idx - 1) || store.getAt(0);
                 if (next) {
-                    this.showStage(next.get('itemId'));
+                    if (closedActiveBreadcrumb) {
+                        this.getController().onBreadcrumbSelect(next, true);
+                    } else {
+                        this.showStage(next.get('itemId'));
+                    }
                 }
             }
             Ext.getApplication().updateWindowTitle();

@@ -3,10 +3,20 @@ Ext.define('Tualo.dashboard.view.dashboard.Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.dashboard_dashboard',
 
-    onBreadcrumbSelect: function (record) {
+    onBreadcrumbSelect: function (record, skipRouteHandler) {
         this.getView().showStage(record.get('itemId'));
         if (record.get('active')) {
-            Ext.getApplication().redirectTo(record.get('link'));
+            let link = record.get('link'),
+                changingRoute = Ext.util.History.getToken() !== link;
+            if (skipRouteHandler && changingRoute) {
+                // Die Ansicht ist bereits aktiv; manche Routen würden sie erneut erzeugen.
+                Ext.on('beforeroutes', function (action, tokens) {
+                    if (tokens.join(Ext.route.Router.getMultipleToken()) === link) {
+                        return false;
+                    }
+                }, null, { single: true });
+            }
+            Ext.getApplication().redirectTo(link, skipRouteHandler && changingRoute ? { force: true } : undefined);
         }
     },
 
