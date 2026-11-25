@@ -1,3 +1,13 @@
+// Scrollbalken im linken Menü ausblenden (Scrollen bleibt möglich)
+.x-panel-nav > .x-body-el {
+    scrollbar-width: none; // Firefox
+    -ms-overflow-style: none; // IE/alte Edge
+
+    &::-webkit-scrollbar {
+        display: none; // Chrome, Safari, Edge
+    }
+}
+
 .tualo-breadcrumb-bar {
     white-space: nowrap;
     overflow-x: auto;

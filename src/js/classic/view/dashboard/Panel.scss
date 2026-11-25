@@ -4,6 +4,14 @@
 
 .x-panel-body-nav {
     background-color: #32404e;
+
+    // Scrollbalken im linken Menü ausblenden (Scrollen bleibt möglich)
+    scrollbar-width: none; // Firefox
+    -ms-overflow-style: none; // IE/alte Edge
+
+    &::-webkit-scrollbar {
+        display: none; // Chrome, Safari, Edge
+    }
 }
 
 .x-fa {
